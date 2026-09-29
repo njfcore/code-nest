@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    All Articles — Code Nest
+{% endblock %}
+
+{% block meta_description %}
+    Explore all programming articles, tutorials, guides, and practical
+    development content published on Code Nest.
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/all_posts.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- =========================================
+     PAGE HEADER
+========================================= -->
+
+<section class="posts-header">
+
+    <div class="container">
+
+        <span class="section-label">
+            Knowledge Base
+        </span>
+
+        <h1 class="posts-title">
+            All Articles
+        </h1>
+
+        <p class="posts-description">
+            Explore programming tutorials, practical guides,
+            and articles to improve your development skills.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     POSTS
+========================================= -->
+
+<section class="all-posts-section">
+
+    <div class="container">
+
+        {% if posts %}
+
+            <div class="all-posts-grid">
+
+                {% for post in posts %}
+
+                    <article class="all-post-card">
+
+                        <!-- Thumbnail -->
+
+                        {% if post.thumbnail %}
+
+                            <div class="all-post-image">
+
+                                <img
+                                    src="{{ post.thumbnail.url }}"
+                                    alt="{{ post.title }}"
+                                >
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="all-post-image all-post-image-placeholder">
+                                <span>&lt;/&gt;</span>
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- Content -->
+
+                        <div class="all-post-content">
+
+                            <div class="post-meta">
+
+                                <span>
+                                    {{ post.timestamp|date:"M d, Y" }}
+                                </span>
+
+                                {% if post.author %}
+
+                                    <span>•</span>
+
+                                    <span>
+                                        {{ post.author.user.username }}
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <h2 class="all-post-title">
+                                {{ post.title }}
+                            </h2>
+
+
+                            {% if post.overview %}
+
+                                <p class="all-post-overview">
+                                    {{ post.overview|truncatewords:25 }}
+                                </p>
+
+                            {% endif %}
+
+
+                            {% if post.categories.all %}
+
+                                <div class="post-categories">
+
+                                    {% for category in post.categories.all %}
+
+                                        <span class="post-category">
+                                            {{ category.title }}
+                                        </span>
+
+                                    {% endfor %}
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <a href="{% url 'blog:postdetails' post.slug %}" class="post-link">
+                                Read Article
+                                <span>→</span>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-state-icon">
+                    &lt;/&gt;
+                </div>
+
+                <h2>
+                    No Articles Yet
+                </h2>
+
+                <p>
+                    There are no published articles available at the moment.
+                </p>
+
+                <a href="/" class="hero-button hero-button-primary">
+                    Back to Home
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

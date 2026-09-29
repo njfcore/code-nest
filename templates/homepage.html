@@ -1,1 +1,456 @@
-<a>hi2</a>
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Code Nest — Learn Programming
+{% endblock %}
+
+{% block meta_description %}
+    Learn programming, explore practical tutorials, build real projects,
+    and improve your development skills with Code Nest.
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- =========================================
+     HERO
+========================================= -->
+
+<section class="hero-section">
+
+    <div class="container hero-container">
+
+        <div class="hero-content">
+
+            <span class="hero-badge">
+                Learn. Build. Grow.
+            </span>
+
+            <h1 class="hero-title">
+                Learn Programming.
+                <span>Build Your Future.</span>
+            </h1>
+
+            <p class="hero-description">
+                Learn programming through practical tutorials,
+                real-world projects, and useful development resources.
+            </p>
+
+            <div class="hero-actions">
+
+                <a href="#" class="hero-button hero-button-primary">
+                    Start Learning
+                </a>
+
+                <a href="#" class="hero-button hero-button-secondary">
+                    Explore Articles
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="hero-visual">
+
+            <div class="code-window">
+
+                <div class="code-window-header">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+                <div class="code-content">
+
+                    <div>
+                        <span class="code-keyword">def</span>
+                        <span class="code-function">learn</span>():
+                    </div>
+
+                    <div class="code-indent">
+                        <span class="code-keyword">return</span>
+                        <span class="code-string">
+                            "Keep building."
+                        </span>
+                    </div>
+
+                    <div class="code-empty"></div>
+
+                    <div>
+                        <span class="code-comment">
+                            # Your journey starts here
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     CATEGORIES
+========================================= -->
+
+<section class="categories-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-label">
+                    Explore
+                </span>
+
+                <h2 class="section-title">
+                    Learn by Category
+                </h2>
+            </div>
+
+            <a href="{% url 'blog:categories' %}" class="section-link">
+                View All
+                <span>→</span>
+            </a>
+
+        </div>
+
+
+        {% if categories %}
+
+            <div class="categories-grid">
+
+                {% for category in categories %}
+
+                    <article class="category-card">
+
+                        {% if category.thumbnail %}
+
+                            <div class="category-image">
+
+                                <img
+                                    src="{{ category.thumbnail.url }}"
+                                    alt="{{ category.title }}"
+                                >
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="category-image category-image-placeholder">
+                                <span>&lt;/&gt;</span>
+                            </div>
+
+                        {% endif %}
+
+
+                        <div class="category-content">
+
+                            <h3 class="category-title">
+                                {{ category.title }}
+                            </h3>
+
+                            <p class="category-subtitle">
+                                {{ category.subtitle }}
+                            </p>
+
+                            <a href="#" class="category-link">
+                                Explore
+                                <span>→</span>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+                <p>No categories available yet.</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     FEATURED POSTS
+========================================= -->
+
+<section class="featured-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-label">
+                    Featured
+                </span>
+
+                <h2 class="section-title">
+                    Featured Articles
+                </h2>
+            </div>
+
+            <a href="#" class="section-link">
+                View All
+                <span>→</span>
+            </a>
+
+        </div>
+
+
+        {% if featured %}
+
+            <div class="featured-grid">
+
+                {% for post in featured %}
+
+                    <article class="featured-card">
+
+                        {% if post.thumbnail %}
+
+                            <div class="post-image">
+
+                                <img
+                                    src="{{ post.thumbnail.url }}"
+                                    alt="{{ post.title }}"
+                                >
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="post-image post-image-placeholder">
+                                <span>&lt;/&gt;</span>
+                            </div>
+
+                        {% endif %}
+
+
+                        <div class="post-content">
+
+                            <div class="post-meta">
+
+                                <span>
+                                    {{ post.timestamp|date:"M d, Y" }}
+                                </span>
+
+                                {% if post.author %}
+                                    <span>•</span>
+                                    <span>
+                                        {{ post.author.user.username }}
+                                    </span>
+                                {% endif %}
+
+                            </div>
+
+
+                            <h3 class="post-title">
+                                {{ post.title }}
+                            </h3>
+
+
+                            {% if post.overview %}
+
+                                <p class="post-overview">
+                                    {{ post.overview|truncatewords:24 }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <a href="{% url 'blog:postdetails' post.slug %}" class="post-link">
+                                Read Article
+                                <span>→</span>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+                <p>No featured articles available yet.</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     LATEST POSTS
+========================================= -->
+
+<section class="latest-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-label">
+                    Latest
+                </span>
+
+                <h2 class="section-title">
+                    Latest Articles
+                </h2>
+            </div>
+
+            <a href="{% url 'blog:allposts' %}" class="section-link">
+                View All
+                <span>→</span>
+            </a>
+
+        </div>
+
+
+        {% if latest %}
+
+            <div class="latest-list">
+
+                {% for post in latest %}
+
+                    <article class="latest-card">
+
+                        {% if post.thumbnail %}
+
+                            <div class="latest-image">
+
+                                <img
+                                    src="{{ post.thumbnail.url }}"
+                                    alt="{{ post.title }}"
+                                >
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="latest-image latest-image-placeholder">
+                                <span>&lt;/&gt;</span>
+                            </div>
+
+                        {% endif %}
+
+
+                        <div class="latest-content">
+
+                            <div class="post-meta">
+
+                                <span>
+                                    {{ post.timestamp|date:"M d, Y" }}
+                                </span>
+
+                                {% if post.author %}
+                                    <span>•</span>
+                                    <span>
+                                        {{ post.author.user.username }}
+                                    </span>
+                                {% endif %}
+
+                            </div>
+
+
+                            <h3 class="post-title">
+                                {{ post.title }}
+                            </h3>
+
+
+                            {% if post.overview %}
+
+                                <p class="post-overview">
+                                    {{ post.overview|truncatewords:20 }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <a href="{% url 'blog:postdetails' post.slug %}" class="post-link">
+                                Read Article
+                                <span>→</span>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+                <p>No articles available yet.</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     FINAL CTA
+========================================= -->
+
+<section class="cta-section">
+
+    <div class="container">
+
+        <div class="cta-content">
+
+            <span class="section-label">
+                Start Your Journey
+            </span>
+
+            <h2 class="cta-title">
+                Ready to Build Something Great?
+            </h2>
+
+            <p class="cta-description">
+                Explore practical programming content and
+                start building your skills today.
+            </p>
+
+            <a href="#" class="hero-button hero-button-primary">
+                Explore Tutorials
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

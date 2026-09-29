@@ -1,1 +1,350 @@
-<a>hi</a>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    About Code Nest
+{% endblock %}
+
+{% block meta_description %}
+    Learn more about Code Nest, a programming education platform built to help you learn, build projects, and grow as a developer.
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="about-hero">
+    <div class="container about-hero-container">
+
+        <div class="about-eyebrow">
+            <span class="about-eyebrow-line"></span>
+            <span>ABOUT CODE NEST</span>
+        </div>
+
+        <h1 class="about-hero-title">
+            Learn.
+            <span>Build.</span>
+            Grow.
+        </h1>
+
+        <p class="about-hero-description">
+            Code Nest is a programming education platform built to make
+            learning development more practical, structured, and accessible.
+        </p>
+
+        <div class="about-hero-actions">
+            <a href="{% url 'blog:allposts' %}" class="about-button about-button-primary">
+                Explore Articles
+                <span>?</span>
+            </a>
+
+            <a href="/" class="about-button about-button-secondary">
+                Back to Home
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Introduction -->
+<section class="about-intro">
+    <div class="container">
+
+        <div class="about-intro-grid">
+
+            <div class="about-section-heading">
+                <span class="about-section-label">OUR PURPOSE</span>
+
+                <h2>
+                    Learning to code
+                    <span>should be practical.</span>
+                </h2>
+            </div>
+
+            <div class="about-intro-content">
+                <p>
+                    Learning programming is not only about understanding
+                    syntax or memorizing concepts. It is about learning how
+                    to think, solve problems, build things, and continuously
+                    improve.
+                </p>
+
+                <p>
+                    Code Nest brings programming concepts, practical
+                    tutorials, development techniques, and project-based
+                    learning together in one place.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- What We Offer -->
+<section class="about-offer">
+    <div class="container">
+
+        <div class="about-section-header">
+            <span class="about-section-label">WHAT YOU'LL FIND</span>
+
+            <h2>
+                Everything you need to
+                <span>keep moving forward.</span>
+            </h2>
+
+            <p>
+                Explore content designed to help you understand concepts
+                and turn that knowledge into real projects.
+            </p>
+        </div>
+
+
+        <div class="about-offer-grid">
+
+            <!-- Card -->
+            <article class="about-feature-card">
+
+                <div class="about-feature-icon">
+                    <span>&lt;/&gt;</span>
+                </div>
+
+                <div class="about-feature-number">
+                    01
+                </div>
+
+                <h3>
+                    Programming Fundamentals
+                </h3>
+
+                <p>
+                    Build a strong foundation by understanding the core
+                    concepts behind programming and software development.
+                </p>
+
+            </article>
+
+
+            <!-- Card -->
+            <article class="about-feature-card">
+
+                <div class="about-feature-icon">
+                    <span>{ }</span>
+                </div>
+
+                <div class="about-feature-number">
+                    02
+                </div>
+
+                <h3>
+                    Practical Development
+                </h3>
+
+                <p>
+                    Move beyond theory and learn how programming concepts
+                    are applied while building real-world projects.
+                </p>
+
+            </article>
+
+
+            <!-- Card -->
+            <article class="about-feature-card">
+
+                <div class="about-feature-icon">
+                    <span>01</span>
+                </div>
+
+                <div class="about-feature-number">
+                    03
+                </div>
+
+                <h3>
+                    Developer Skills
+                </h3>
+
+                <p>
+                    Learn useful development practices, tools, workflows,
+                    and techniques that help you become a better developer.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Learning Approach -->
+<section class="about-approach">
+    <div class="container">
+
+        <div class="about-approach-grid">
+
+            <div class="about-approach-content">
+
+                <span class="about-section-label">
+                    OUR APPROACH
+                </span>
+
+                <h2>
+                    Understand the concept.
+                    <span>Build the solution.</span>
+                </h2>
+
+                <p>
+                    We believe the best way to learn programming is to
+                    connect knowledge with practice.
+                </p>
+
+                <p>
+                    That's why Code Nest focuses on clear explanations,
+                    practical examples, and content that can be applied
+                    directly to your own projects.
+                </p>
+
+                <div class="about-principles">
+
+                    <div class="about-principle">
+                        <span class="principle-check">?</span>
+                        <div>
+                            <strong>Clear explanations</strong>
+                            <p>
+                                Concepts explained without unnecessary complexity.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="about-principle">
+                        <span class="principle-check">?</span>
+                        <div>
+                            <strong>Practical examples</strong>
+                            <p>
+                                Learn how concepts work in real development scenarios.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="about-principle">
+                        <span class="principle-check">?</span>
+                        <div>
+                            <strong>Continuous growth</strong>
+                            <p>
+                                Keep learning, experimenting, and improving your skills.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="about-code-card">
+
+                <div class="about-code-header">
+
+                    <div class="about-code-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <span>learning.py</span>
+
+                </div>
+
+                <div class="about-code-body">
+<pre><code><span class="code-keyword">class</span> <span class="code-class">Developer</span>:
+
+    <span class="code-keyword">def</span> <span class="code-function">learn</span>(self):
+        knowledge = <span class="code-string">"theory"</span>
+        practice = <span class="code-string">"projects"</span>
+
+        <span class="code-keyword">return</span> knowledge + practice
+
+    <span class="code-keyword">def</span> <span class="code-function">grow</span>(self):
+        <span class="code-keyword">return</span> <span class="code-string">"keep building"</span></code></pre>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Community / Vision -->
+<section class="about-vision">
+    <div class="container">
+
+        <div class="about-vision-card">
+
+            <div class="about-vision-content">
+
+                <span class="about-section-label">
+                    THE VISION
+                </span>
+
+                <h2>
+                    Build skills that
+                    <span>build things.</span>
+                </h2>
+
+                <p>
+                    Code Nest aims to create a place where learning
+                    programming feels less overwhelming and more rewarding.
+                    A place where every new concept can become the starting
+                    point for something you build yourself.
+                </p>
+
+            </div>
+
+            <div class="about-vision-mark">
+                <span>&lt;/&gt;</span>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- CTA -->
+<section class="about-cta">
+    <div class="container">
+
+        <div class="about-cta-content">
+
+            <span class="about-section-label">
+                START LEARNING
+            </span>
+
+            <h2>
+                Your next project
+                <span>starts here.</span>
+            </h2>
+
+            <p>
+                Explore the latest articles and start turning
+                what you learn into something you can build.
+            </p>
+
+            <a href="{% url 'blog:allposts' %}" class="about-button about-button-primary">
+                Explore Articles
+                <span>?</span>
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

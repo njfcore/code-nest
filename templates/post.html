@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ post.title }} — Code Nest
+{% endblock %}
+
+{% block meta_description %}
+    {{ post.overview|truncatewords:30 }}
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- =========================================
+     POST HEADER
+========================================= -->
+
+<section class="post-header">
+
+    <div class="container post-header-container">
+
+        <div class="post-breadcrumb">
+
+            <a href="/">
+                Home
+            </a>
+
+            <span>→</span>
+
+            <a href="/posts/">
+                Articles
+            </a>
+
+            <span>→</span>
+
+            <span>
+                {{ post.title }}
+            </span>
+
+        </div>
+
+
+        <div class="post-meta post-header-meta">
+
+            <span>
+                {{ post.timestamp|date:"M d, Y" }}
+            </span>
+
+            {% if post.author %}
+
+                <span>•</span>
+
+                <span>
+                    {{ post.author.user.username }}
+                </span>
+
+            {% endif %}
+
+        </div>
+
+
+        <h1 class="post-page-title">
+            {{ post.title }}
+        </h1>
+
+
+        {% if post.overview %}
+
+            <p class="post-page-overview">
+                {{ post.overview }}
+            </p>
+
+        {% endif %}
+
+
+        {% if post.categories.all %}
+
+            <div class="post-page-categories">
+
+                {% for category in post.categories.all %}
+
+                    <span class="post-category">
+                        {{ category.title }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     POST CONTENT
+========================================= -->
+
+<section class="post-content-section">
+
+    <div class="container">
+
+        <article class="post-article">
+
+            <!-- Thumbnail -->
+
+            {% if post.thumbnail %}
+
+                <div class="post-featured-image">
+
+                    <img
+                        src="{{ post.thumbnail.url }}"
+                        alt="{{ post.title }}"
+                    >
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- Article -->
+
+            <div class="post-body">
+
+                {{ post.content|linebreaks }}
+
+            </div>
+
+
+            <!-- Video -->
+
+            {% if post.video %}
+
+                <div class="post-video">
+
+                    <video controls preload="metadata">
+
+                        <source
+                            src="{{ post.video.url }}"
+                            type="video/mp4"
+                        >
+
+                        Your browser does not support
+                        the video element.
+
+                    </video>
+
+                </div>
+
+            {% endif %}
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     BACK TO ARTICLES
+========================================= -->
+
+<section class="post-footer-section">
+
+    <div class="container">
+
+        <a href="{% url 'blog:allposts' %}" class="post-back-link">
+            ← Back to Articles
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

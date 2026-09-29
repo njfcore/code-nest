@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Categories — Code Nest
+{% endblock %}
+
+{% block meta_description %}
+    Explore programming categories on Code Nest and discover articles, tutorials, and practical content for developers.
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/categories.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="categories-hero">
+    <div class="container">
+
+        <div class="categories-breadcrumb">
+            <a href="/">Home</a>
+            <span>→</span>
+            <strong>Categories</strong>
+        </div>
+
+        <div class="categories-hero-content">
+
+            <span class="categories-eyebrow">
+                EXPLORE & LEARN
+            </span>
+
+            <h1>
+                Find your
+                <span>next topic.</span>
+            </h1>
+
+            <p>
+                Explore programming topics, discover useful articles,
+                and find the knowledge you need to keep building.
+            </p>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Categories -->
+<section class="categories-section">
+    <div class="container">
+
+        <div class="categories-section-header">
+
+            <div>
+                <span class="categories-section-label">
+                    ALL CATEGORIES
+                </span>
+
+                <h2>
+                    Explore
+                    <span>programming.</span>
+                </h2>
+            </div>
+
+            <div class="categories-count">
+                <span>{{ categories|length }}</span>
+                <small>
+                    {% if categories|length == 1 %}
+                        Category
+                    {% else %}
+                        Categories
+                    {% endif %}
+                </small>
+            </div>
+
+        </div>
+
+
+        {% if categories %}
+
+            <div class="categories-grid">
+
+                {% for category in categories %}
+
+                    <article class="category-page-card">
+
+                        <a
+                            href="{% url 'blog:postlist' category.slug %}"
+                            class="category-page-image"
+                            aria-label="Explore {{ category.title }}"
+                        >
+
+                            {% if category.thumbnail %}
+                                <img
+                                    src="{{ category.thumbnail.url }}"
+                                    alt="{{ category.title }}"
+                                >
+                            {% else %}
+                                <div class="category-page-image-placeholder">
+                                    <span>&lt;/&gt;</span>
+                                </div>
+                            {% endif %}
+
+                            <div class="category-page-image-overlay">
+                                <span>Explore →</span>
+                            </div>
+
+                        </a>
+
+
+                        <div class="category-page-content">
+
+                            <div class="category-page-number">
+                                {{ forloop.counter|stringformat:"02d" }}
+                            </div>
+
+                            <h3>
+                                <a href="{% url 'blog:postlist' category.slug %}">
+                                    {{ category.title }}
+                                </a>
+                            </h3>
+
+                            {% if category.subtitle %}
+                                <p>
+                                    {{ category.subtitle }}
+                                </p>
+                            {% endif %}
+
+                            <a
+                                href="{% url 'blog:postlist' category.slug %}"
+                                class="category-page-link"
+                            >
+                                View Articles
+                                <span>→</span>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <!-- Empty State -->
+            <div class="categories-empty">
+
+                <div class="categories-empty-icon">
+                    <span>{ }</span>
+                </div>
+
+                <h2>
+                    No categories yet
+                </h2>
+
+                <p>
+                    There are currently no programming categories available.
+                    Check back later for new content.
+                </p>
+
+                <a
+                    href="/"
+                    class="categories-empty-button"
+                >
+                    Back to Home
+                    <span>→</span>
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+</section>
+
+
+<!-- CTA -->
+<section class="categories-cta">
+    <div class="container">
+
+        <div class="categories-cta-card">
+
+            <div>
+                <span class="categories-section-label">
+                    KEEP EXPLORING
+                </span>
+
+                <h2>
+                    Learn something.
+                    <span>Build something.</span>
+                </h2>
+
+                <p>
+                    Choose a topic and start exploring articles
+                    designed to help you improve your programming skills.
+                </p>
+            </div>
+
+            <a
+                href="{% url 'blog:allposts' %}"
+                class="categories-cta-button"
+            >
+                View All Articles
+                <span>→</span>
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

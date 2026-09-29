@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Profile — Code Nest
+{% endblock %}
+
+{% block meta_description %}
+    Manage your Code Nest profile and account information.
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="profile-page">
+    <div class="container">
+
+        <div class="profile-breadcrumb">
+            <a href="/">Home</a>
+            <span>→</span>
+            <strong>Profile</strong>
+        </div>
+
+        <div class="profile-header">
+            <div class="profile-avatar">
+                {{ request.user.username|first|upper }}
+            </div>
+
+            <div class="profile-header-info">
+                <span class="profile-eyebrow">YOUR ACCOUNT</span>
+
+                <h1>
+                    {{ request.user.username }}
+                </h1>
+
+                {% if request.user.email %}
+                    <p>{{ request.user.email }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="profile-grid">
+
+            <section class="profile-card">
+                <div class="profile-card-header">
+                    <div>
+                        <span class="profile-section-label">ACCOUNT</span>
+                        <h2>Account Information</h2>
+                    </div>
+                </div>
+
+                <div class="profile-info-list">
+
+                    <div class="profile-info-item">
+                        <span>Username</span>
+                        <strong>{{ request.user.username }}</strong>
+                    </div>
+
+                    <div class="profile-info-item">
+                        <span>Email</span>
+                        <strong>
+                            {% if request.user.email %}
+                                {{ request.user.email }}
+                            {% else %}
+                                Not provided
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div class="profile-info-item">
+                        <span>Member since</span>
+                        <strong>
+                            {{ request.user.date_joined|date:"M d, Y" }}
+                        </strong>
+                    </div>
+
+                    <div class="profile-info-item">
+                        <span>Last login</span>
+                        <strong>
+                            {% if request.user.last_login %}
+                                {{ request.user.last_login|date:"M d, Y" }}
+                            {% else %}
+                                First login
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                </div>
+            </section>
+
+            <aside class="profile-card profile-actions-card">
+                <span class="profile-section-label">ACCOUNT ACTIONS</span>
+
+                <h2>Manage your account</h2>
+
+                <p>
+                    Keep your account information up to date
+                    and manage your Code Nest session.
+                </p>
+
+                <div class="profile-actions">
+
+                    <a href="#" class="profile-action-button">
+                        Edit Profile
+                        <span>→</span>
+                    </a>
+
+                    <a href="#" class="profile-action-button profile-action-secondary">
+                        Change Password
+                        <span>→</span>
+                    </a>
+
+                    <a
+                        href="{% url 'accounts:logout' %}"
+                        class="profile-action-button profile-logout"
+                    >
+                        Log Out
+                        <span>→</span>
+                    </a>
+
+                </div>
+            </aside>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+```

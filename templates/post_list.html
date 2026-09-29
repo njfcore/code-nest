@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ category.title }} — Code Nest
+{% endblock %}
+
+{% block meta_description %}
+    {{ category.subtitle }} — Explore programming articles on Code Nest.
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/post_list.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Category Header -->
+<section class="post-list-hero">
+    <div class="container">
+
+        <div class="post-list-breadcrumb">
+            <a href="/">Home</a>
+            <span>→</span>
+            <span>Categories</span>
+            <span>→</span>
+            <strong>{{ category.title }}</strong>
+        </div>
+
+        <div class="post-list-hero-content">
+
+            <div class="post-list-category-icon">
+                <span>&lt;/&gt;</span>
+            </div>
+
+            <div>
+                <span class="post-list-eyebrow">
+                    CATEGORY
+                </span>
+
+                <h1 class="post-list-title">
+                    {{ category.title }}
+                </h1>
+
+                {% if category.subtitle %}
+                    <p class="post-list-subtitle">
+                        {{ category.subtitle }}
+                    </p>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Posts -->
+<section class="post-list-section">
+    <div class="container">
+
+        <div class="post-list-header">
+
+            <div>
+                <span class="post-list-section-label">
+                    ARTICLES
+                </span>
+
+                <h2>
+                    Explore
+                    <span>{{ category.title }}</span>
+                    articles
+                </h2>
+            </div>
+
+            <div class="post-list-count">
+                <span>{{ posts|length }}</span>
+                <small>
+                    {% if posts|length == 1 %}
+                        Article
+                    {% else %}
+                        Articles
+                    {% endif %}
+                </small>
+            </div>
+
+        </div>
+
+
+        {% if posts %}
+
+            <div class="post-list-grid">
+
+                {% for post in posts %}
+
+                    <article class="post-list-card">
+
+                        <!-- Thumbnail -->
+                        <a
+                            href="#"
+                            class="post-list-image"
+                            aria-label="Read {{ post.title }}"
+                        >
+                            {% if post.thumbnail %}
+                                <img
+                                    src="{{ post.thumbnail.url }}"
+                                    alt="{{ post.title }}"
+                                >
+                            {% else %}
+                                <div class="post-list-image-placeholder">
+                                    <span>&lt;/&gt;</span>
+                                </div>
+                            {% endif %}
+                        </a>
+
+
+                        <!-- Card Content -->
+                        <div class="post-list-card-content">
+
+                            <div class="post-list-card-meta">
+
+                                <span>
+                                    {{ post.timestamp|date:"M d, Y" }}
+                                </span>
+
+                                {% if post.author %}
+                                    <span class="post-list-meta-separator">
+                                        •
+                                    </span>
+
+                                    <span>
+                                        {{ post.author.user.username }}
+                                    </span>
+                                {% endif %}
+
+                            </div>
+
+
+                            <h3 class="post-list-card-title">
+                                <a href="#">
+                                    {{ post.title }}
+                                </a>
+                            </h3>
+
+
+                            {% if post.overview %}
+                                <p class="post-list-card-overview">
+                                    {{ post.overview|truncatewords:24 }}
+                                </p>
+                            {% endif %}
+
+
+                            {% if post.categories.all %}
+                                <div class="post-list-card-categories">
+
+                                    {% for post_category in post.categories.all %}
+
+                                        <a
+                                            href="#"
+                                            class="post-list-category-tag"
+                                        >
+                                            {{ post_category.title }}
+                                        </a>
+
+                                    {% endfor %}
+
+                                </div>
+                            {% endif %}
+
+
+                            <div class="post-list-card-footer">
+
+                                <a
+                                    href="#"
+                                    class="post-list-read-more"
+                                >
+                                    Read Article
+                                    <span>→</span>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <!-- Empty State -->
+            <div class="post-list-empty">
+
+                <div class="post-list-empty-icon">
+                    <span>&lt;/&gt;</span>
+                </div>
+
+                <h2>
+                    No articles yet
+                </h2>
+
+                <p>
+                    There are currently no articles in
+                    <strong>{{ category.title }}</strong>.
+                    Check back later for new content.
+                </p>
+
+                <a
+                    href="/"
+                    class="post-list-empty-button"
+                >
+                    Back to Home
+                    <span>→</span>
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+</section>
+
+
+<!-- Bottom CTA -->
+<section class="post-list-cta">
+    <div class="container">
+
+        <div class="post-list-cta-content">
+
+            <div>
+                <span class="post-list-section-label">
+                    KEEP LEARNING
+                </span>
+
+                <h2>
+                    Looking for something
+                    <span>else?</span>
+                </h2>
+
+                <p>
+                    Explore other programming topics and discover
+                    more articles on Code Nest.
+                </p>
+            </div>
+
+            <a
+                href="{% url 'blog:allposts' %}"
+                class="post-list-cta-button"
+            >
+                View All Articles
+                <span>→</span>
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

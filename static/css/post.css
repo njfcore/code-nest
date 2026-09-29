@@ -1,0 +1,381 @@
+/* =========================================
+   CODE NEST — POST DETAIL
+========================================= */
+
+
+/* =========================================
+   POST HEADER
+========================================= */
+
+.post-header {
+    padding: 75px 0 70px;
+
+    background:
+        radial-gradient(
+            circle at center top,
+            rgba(240, 185, 11, 0.08),
+            transparent 45%
+        ),
+        var(--color-background);
+}
+
+.post-header-container {
+    max-width: 900px;
+}
+
+
+/* =========================================
+   BREADCRUMB
+========================================= */
+
+.post-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+
+    margin-bottom: 28px;
+
+    color: var(--color-text-muted);
+    font-size: 13px;
+}
+
+.post-breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+
+    transition: color var(--transition-fast);
+}
+
+.post-breadcrumb a:hover {
+    color: var(--color-primary);
+}
+
+
+/* =========================================
+   META
+========================================= */
+
+.post-header-meta {
+    margin-bottom: 18px;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.post-page-title {
+    max-width: 900px;
+
+    margin: 0 0 24px;
+
+    color: var(--color-text);
+
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 1.12;
+    letter-spacing: -1.5px;
+}
+
+
+/* =========================================
+   OVERVIEW
+========================================= */
+
+.post-page-overview {
+    max-width: 760px;
+
+    margin: 0 0 24px;
+
+    color: var(--color-text-muted);
+
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   CATEGORIES
+========================================= */
+
+.post-page-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.post-category {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 6px 10px;
+
+    border: 1px solid rgba(240, 185, 11, 0.18);
+    border-radius: 5px;
+
+    color: var(--color-primary);
+    background: rgba(240, 185, 11, 0.06);
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   CONTENT SECTION
+========================================= */
+
+.post-content-section {
+    padding: 80px 0 100px;
+
+    background: var(--color-background);
+}
+
+.post-article {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   FEATURED IMAGE
+========================================= */
+
+.post-featured-image {
+    width: 100%;
+
+    margin-bottom: 50px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+
+    background: var(--color-surface);
+}
+
+.post-featured-image img {
+    display: block;
+
+    width: 100%;
+    max-height: 560px;
+
+    object-fit: cover;
+}
+
+
+/* =========================================
+   ARTICLE BODY
+========================================= */
+
+.post-body {
+    color: #d7dde4;
+
+    font-size: 17px;
+    line-height: 2;
+}
+
+.post-body p {
+    margin: 0 0 24px;
+}
+
+.post-body h2,
+.post-body h3,
+.post-body h4 {
+    margin-top: 42px;
+    margin-bottom: 18px;
+
+    color: var(--color-text);
+
+    line-height: 1.3;
+}
+
+.post-body h2 {
+    font-size: 30px;
+}
+
+.post-body h3 {
+    font-size: 25px;
+}
+
+.post-body h4 {
+    font-size: 21px;
+}
+
+.post-body strong {
+    color: var(--color-text);
+}
+
+.post-body a {
+    color: var(--color-primary);
+}
+
+.post-body ul,
+.post-body ol {
+    margin: 0 0 28px;
+    padding-left: 28px;
+}
+
+.post-body li {
+    margin-bottom: 9px;
+}
+
+
+/* =========================================
+   CODE
+========================================= */
+
+.post-body code {
+    padding: 3px 7px;
+
+    border-radius: 5px;
+
+    color: var(--color-primary);
+    background: var(--color-surface-light);
+
+    font-family: "Courier New", monospace;
+    font-size: 0.9em;
+}
+
+.post-body pre {
+    overflow-x: auto;
+
+    margin: 30px 0;
+
+    padding: 22px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+
+    background: #0d131a;
+
+    color: #d9e0e7;
+
+    line-height: 1.7;
+}
+
+.post-body pre code {
+    padding: 0;
+
+    background: transparent;
+    color: inherit;
+}
+
+
+/* =========================================
+   VIDEO
+========================================= */
+
+.post-video {
+    margin-top: 55px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+
+    background: #000;
+}
+
+.post-video video {
+    display: block;
+
+    width: 100%;
+    max-height: 600px;
+}
+
+
+/* =========================================
+   FOOTER SECTION
+========================================= */
+
+.post-footer-section {
+    padding: 0 0 100px;
+
+    background: var(--color-background);
+}
+
+.post-back-link {
+    display: inline-flex;
+    align-items: center;
+
+    color: var(--color-primary);
+
+    font-size: 14px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: transform var(--transition-fast);
+}
+
+.post-back-link:hover {
+    transform: translateX(-4px);
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .post-header {
+        padding: 55px 0 50px;
+    }
+
+    .post-page-title {
+        font-size: 40px;
+    }
+
+    .post-page-overview {
+        font-size: 16px;
+    }
+
+    .post-content-section {
+        padding: 55px 0 75px;
+    }
+
+    .post-body {
+        font-size: 16px;
+    }
+
+    .post-featured-image {
+        margin-bottom: 35px;
+        border-radius: 10px;
+    }
+
+    .post-footer-section {
+        padding-bottom: 75px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .post-page-title {
+        font-size: 34px;
+        letter-spacing: -0.8px;
+    }
+
+    .post-breadcrumb {
+        font-size: 12px;
+    }
+
+    .post-body h2 {
+        font-size: 26px;
+    }
+
+    .post-body h3 {
+        font-size: 22px;
+    }
+
+    .post-body pre {
+        margin-left: -5px;
+        margin-right: -5px;
+        border-radius: 8px;
+        padding: 16px;
+    }
+
+}

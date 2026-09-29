@@ -11,7 +11,7 @@ def homepage(request):
 
     context = {
 
-        'object_list': featured,
+        'featured': featured,
 
         'latest': latest,
 
