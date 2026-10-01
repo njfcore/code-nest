@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Pro Membership — Code Nest
+{% endblock %}
+
+{% block meta_description %}
+    Upgrade to Code Nest Pro and unlock premium programming content.
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/subscription.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="subscription-hero">
+    <div class="container">
+
+        <span class="section-label">CODE NEST PRO</span>
+
+        <h1>Unlock More. Learn More.</h1>
+
+        <p>
+            Get access to premium programming articles,
+            tutorials, and exclusive content.
+        </p>
+
+    </div>
+</section>
+
+
+<section class="plans-section">
+    <div class="container">
+
+        {% if is_pro %}
+
+            <div class="subscription-active">
+                <div class="subscription-active-icon">
+                    ✓
+                </div>
+
+                <h2>You are already a Pro member</h2>
+
+                <p>
+                    Your current subscription is active.
+                </p>
+
+                <a
+                    href="{% url 'accounts:profile' %}"
+                    class="subscription-button"
+                >
+                    View Profile
+                </a>
+            </div>
+
+        {% elif plans %}
+
+            <div class="plans-grid">
+
+                {% for plan in plans %}
+
+                    <article class="plan-card">
+
+                        <span class="plan-badge">
+                            PRO
+                        </span>
+
+                        <h2 class="plan-name">
+                            {{ plan.name }}
+                        </h2>
+
+                        <div class="plan-price">
+                            <strong>
+                                {{ plan.price|floatformat:0 }}
+                            </strong>
+                            <span>$</span>
+                        </div>
+
+                        <div class="plan-duration">
+                            {{ plan.duration_days }} days
+                        </div>
+
+                        <ul class="plan-features">
+                            <li>✓ Premium articles</li>
+                            <li>✓ Exclusive tutorials</li>
+                            <li>✓ Pro video content</li>
+                            <li>✓ Full access while active</li>
+                        </ul>
+
+                        <a
+                            href="{% url 'subscription:checkout' plan.id %}"
+                            class="subscription-button"
+                        >
+                            Get Pro
+                        </a>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+                <h2>No plans available</h2>
+                <p>
+                    Pro subscriptions are currently unavailable.
+                </p>
+            </div>
+
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}

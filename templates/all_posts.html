@@ -61,24 +61,37 @@
 
                         <!-- Thumbnail -->
 
-                        {% if post.thumbnail %}
+                        <div class="all-post-image-wrapper">
 
-                            <div class="all-post-image">
+                            {% if post.thumbnail %}
 
-                                <img
-                                    src="{{ post.thumbnail.url }}"
-                                    alt="{{ post.title }}"
-                                >
+                                <div class="all-post-image">
 
-                            </div>
+                                    <img
+                                        src="{{ post.thumbnail.url }}"
+                                        alt="{{ post.title }}"
+                                    >
 
-                        {% else %}
+                                </div>
 
-                            <div class="all-post-image all-post-image-placeholder">
-                                <span>&lt;/&gt;</span>
-                            </div>
+                            {% else %}
 
-                        {% endif %}
+                                <div class="all-post-image all-post-image-placeholder">
+                                    <span>&lt;/&gt;</span>
+                                </div>
+
+                            {% endif %}
+
+
+                            {% if post.is_pro %}
+
+                                <span class="post-pro-badge">
+                                    PRO
+                                </span>
+
+                            {% endif %}
+
+                        </div>
 
 
                         <!-- Content -->
@@ -135,9 +148,19 @@
                             {% endif %}
 
 
-                            <a href="{% url 'blog:postdetails' post.slug %}" class="post-link">
-                                Read Article
+                            <a
+                                href="{% url 'blog:postdetails' post.slug %}"
+                                class="post-link"
+                            >
+
+                                {% if post.is_pro %}
+                                    View Pro Article
+                                {% else %}
+                                    Read Article
+                                {% endif %}
+
                                 <span>→</span>
+
                             </a>
 
                         </div>
@@ -149,6 +172,8 @@
             </div>
 
         {% else %}
+
+            <!-- Empty State -->
 
             <div class="empty-state">
 
@@ -164,7 +189,10 @@
                     There are no published articles available at the moment.
                 </p>
 
-                <a href="/" class="hero-button hero-button-primary">
+                <a
+                    href="/"
+                    class="hero-button hero-button-primary"
+                >
                     Back to Home
                 </a>
 

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/subscription.css' %}">
+{% endblock %}
+
+{% block title %}
+    Payment — Code Nest
+{% endblock %}
+
+{% block content %}
+
+<section class="checkout-section">
+    <div class="container">
+
+        <div class="checkout-card">
+
+            <span class="section-label">
+                MOCK PAYMENT
+            </span>
+
+            <h1>
+                Complete Your Payment
+            </h1>
+
+            <p>
+                This is a simulated payment page.
+                No real money will be charged.
+            </p>
+
+            <div class="checkout-price">
+                {{ payment.amount|floatformat:0 }}
+                تومان
+            </div>
+
+            <div class="checkout-details">
+
+                <div>
+                    <span>Plan</span>
+                    <strong>
+                        {{ payment.plan.name }}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Transaction</span>
+                    <strong>
+                        {{ payment.transaction_id }}
+                    </strong>
+                </div>
+
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="subscription-button"
+                >
+                    Pay Now
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

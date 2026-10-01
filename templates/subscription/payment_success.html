@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/subscription.css' %}">
+{% endblock %}
+
+{% block title %}
+Payment Successful — Code Nest
+{% endblock %}
+
+{% block content %}
+
+<section class="checkout-section">
+    <div class="container">
+
+
+    <div class="checkout-card payment-success-card">
+
+        <div class="payment-success-icon">
+            ✓
+        </div>
+
+        <span class="section-label">
+            PAYMENT SUCCESSFUL
+        </span>
+
+        <h1>
+            Welcome to Code Nest Pro
+        </h1>
+
+        <p>
+            Your Pro subscription has been activated successfully.
+        </p>
+
+        {% if subscription %}
+
+            <div class="checkout-details">
+
+                <div>
+                    <span>Plan</span>
+                    <strong>
+                        {{ subscription.plan.name }}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Started</span>
+                    <strong>
+                        {{ subscription.started_at|date:"M d, Y" }}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Expires</span>
+                    <strong>
+                        {{ subscription.expires_at|date:"M d, Y" }}
+                    </strong>
+                </div>
+
+            </div>
+
+        {% endif %}
+
+        <a
+            href="{% url 'accounts:profile' %}"
+            class="subscription-button"
+        >
+            Go to Profile
+        </a>
+
+    </div>
+
+</div>
+
+
+</section>
+
+{% endblock %}

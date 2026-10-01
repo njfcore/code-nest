@@ -1,0 +1,667 @@
+/* =========================================================
+   Subscription
+   ========================================================= */
+
+/* =========================================================
+   Subscription Hero
+   ========================================================= */
+
+.subscription-hero {
+    padding: 72px 0 64px;
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(201, 162, 39, 0.10),
+            transparent 55%
+        );
+}
+
+.subscription-hero .section-label {
+    display: block;
+    margin-bottom: 12px;
+
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+}
+
+.subscription-hero h1 {
+    margin: 0 0 14px;
+
+    color: var(--color-text);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.15;
+}
+
+.subscription-hero p {
+    max-width: 620px;
+    margin: 0 auto;
+
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+/* =========================================================
+   Plans Section
+   ========================================================= */
+
+.plans-section {
+    padding: 20px 0 90px;
+}
+
+.plans-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(260px, 1fr)
+        );
+
+    gap: 24px;
+
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+/* =========================================================
+   Plan Card
+   ========================================================= */
+
+.plan-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 32px;
+
+    overflow: hidden;
+
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
+
+    transition:
+        transform var(--transition-fast),
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.plan-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: -100px;
+    right: -90px;
+
+    width: 240px;
+    height: 240px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(201, 162, 39, 0.10),
+            transparent 68%
+        );
+
+    pointer-events: none;
+}
+
+.plan-card:hover {
+    border-color: rgba(201, 162, 39, 0.45);
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 14px 35px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================================================
+   Plan Badge
+   ========================================================= */
+
+.plan-badge {
+    position: relative;
+    z-index: 1;
+
+    align-self: flex-start;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 27px;
+    padding: 0 11px;
+
+    margin-bottom: 22px;
+
+    border: 1px solid rgba(201, 162, 39, 0.65);
+    border-radius: 999px;
+
+    background: #111111;
+    color: var(--color-primary);
+
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================================
+   Plan Name
+   ========================================================= */
+
+.plan-name {
+    position: relative;
+    z-index: 1;
+
+    margin: 0 0 18px;
+
+    color: var(--color-text);
+    font-size: 1.5rem;
+}
+
+/* =========================================================
+   Plan Price
+   ========================================================= */
+
+.plan-price {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+
+    margin-bottom: 8px;
+
+    color: var(--color-text);
+}
+
+.plan-price strong {
+    font-size: 2.3rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.plan-price span {
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+}
+
+/* =========================================================
+   Plan Duration
+   ========================================================= */
+
+.plan-duration {
+    position: relative;
+    z-index: 1;
+
+    margin-bottom: 25px;
+
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+/* =========================================================
+   Plan Features
+   ========================================================= */
+
+.plan-features {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    margin: 0 0 30px;
+    padding: 0;
+
+    list-style: none;
+}
+
+.plan-features li {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   Subscription Button
+   ========================================================= */
+
+.subscription-button {
+    position: relative;
+    z-index: 1;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 46px;
+
+    margin-top: auto;
+    padding: 0 20px;
+
+    border: 1px solid var(--color-primary);
+    border-radius: 10px;
+
+    background: var(--color-primary);
+    color: #0b0f14;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.subscription-button:hover {
+    background: transparent;
+    color: var(--color-primary);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================================================
+   Active Subscription
+   ========================================================= */
+
+.subscription-active {
+    max-width: 700px;
+
+    margin: 20px auto 0;
+    padding: 45px 35px;
+
+    text-align: center;
+
+    background: var(--color-surface);
+    border: 1px solid rgba(201, 162, 39, 0.30);
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.subscription-active-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 64px;
+    height: 64px;
+
+    margin: 0 auto 20px;
+
+    border: 1px solid rgba(45, 140, 80, 0.30);
+    border-radius: 50%;
+
+    background: rgba(45, 140, 80, 0.08);
+    color: #2d8c50;
+
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.subscription-active h2 {
+    margin: 0 0 10px;
+
+    color: var(--color-text);
+    font-size: 1.6rem;
+}
+
+.subscription-active p {
+    margin: 0 0 25px;
+
+    color: var(--color-text-muted);
+    line-height: 1.7;
+}
+
+.subscription-active .subscription-button {
+    display: inline-flex;
+    width: auto;
+    min-width: 150px;
+}
+
+/* =========================================================
+   Empty State
+   ========================================================= */
+
+.empty-state {
+    max-width: 650px;
+
+    margin: 20px auto;
+    padding: 50px 30px;
+
+    text-align: center;
+
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
+}
+
+.empty-state h2 {
+    margin: 0 0 10px;
+
+    color: var(--color-text);
+    font-size: 1.5rem;
+}
+
+.empty-state p {
+    margin: 0;
+
+    color: var(--color-text-muted);
+    line-height: 1.7;
+}
+
+/* =========================================================
+   Checkout
+   ========================================================= */
+
+.checkout-section {
+    min-height: 70vh;
+
+    display: flex;
+    align-items: center;
+
+    padding: 70px 0 90px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(201, 162, 39, 0.08),
+            transparent 50%
+        );
+}
+
+.checkout-card {
+    position: relative;
+
+    width: 100%;
+    max-width: 650px;
+
+    margin: 0 auto;
+    padding: 40px;
+
+    overflow: hidden;
+
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.06);
+}
+
+.checkout-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: -100px;
+    right: -100px;
+
+    width: 250px;
+    height: 250px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(201, 162, 39, 0.10),
+            transparent 68%
+        );
+
+    pointer-events: none;
+}
+
+.checkout-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.checkout-card .section-label {
+    display: block;
+
+    margin-bottom: 12px;
+
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+}
+
+.checkout-card h1 {
+    margin: 0 0 12px;
+
+    color: var(--color-text);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.checkout-card > p {
+    margin: 0 0 25px;
+
+    color: var(--color-text-muted);
+    line-height: 1.8;
+}
+
+/* =========================================================
+   Checkout Price
+   ========================================================= */
+
+.checkout-price {
+    margin: 25px 0;
+
+    color: var(--color-primary);
+
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.checkout-price::first-letter {
+    color: var(--color-primary);
+}
+
+/* =========================================================
+   Checkout Details
+   ========================================================= */
+
+.checkout-details {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+
+    margin-bottom: 28px;
+}
+
+.checkout-details > div {
+    padding: 15px 16px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.checkout-details span {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}
+
+.checkout-details strong {
+    display: block;
+
+    color: var(--color-text);
+    font-size: 0.9rem;
+
+    word-break: break-word;
+}
+
+/* =========================================================
+   Checkout Back Link
+   ========================================================= */
+
+.checkout-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 18px;
+
+    color: var(--color-text-muted);
+
+    font-size: 0.85rem;
+    text-decoration: none;
+
+    transition: color var(--transition-fast);
+}
+
+.checkout-back:hover {
+    color: var(--color-primary);
+}
+
+/* =========================================================
+   Payment Success
+   ========================================================= */
+
+.payment-success-card {
+    text-align: center;
+}
+
+.payment-success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 22px;
+
+    border: 1px solid rgba(45, 140, 80, 0.30);
+    border-radius: 50%;
+
+    background: rgba(45, 140, 80, 0.08);
+    color: #2d8c50;
+
+    font-size: 1.8rem;
+    font-weight: 700;
+
+    box-shadow:
+        0 0 0 8px rgba(45, 140, 80, 0.04);
+}
+
+.payment-success-card .checkout-details {
+    margin-top: 28px;
+    text-align: left;
+}
+
+.payment-success-card .subscription-button {
+    width: auto;
+    min-width: 170px;
+    margin-top: 5px;
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .subscription-hero {
+        padding: 55px 0 45px;
+    }
+
+    .plans-section {
+        padding-bottom: 65px;
+    }
+
+    .checkout-section {
+        padding: 50px 0 70px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .subscription-hero {
+        padding: 45px 0 35px;
+    }
+
+    .subscription-hero h1 {
+        font-size: 2rem;
+    }
+
+    .subscription-hero p {
+        font-size: 0.9rem;
+    }
+
+    .plans-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .plan-card {
+        padding: 25px;
+    }
+
+    .plan-price strong {
+        font-size: 2rem;
+    }
+
+    .subscription-active {
+        padding: 35px 22px;
+    }
+
+    .subscription-active h2 {
+        font-size: 1.35rem;
+    }
+
+    .checkout-card {
+        padding: 28px 22px;
+        border-radius: 16px;
+    }
+
+    .checkout-price {
+        font-size: 1.7rem;
+    }
+
+    .checkout-details {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-success-icon {
+        width: 62px;
+        height: 62px;
+        font-size: 1.5rem;
+    }
+}

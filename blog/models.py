@@ -43,6 +43,22 @@ class Post(models.Model):
 
     thumbnail = models.ImageField()
 
+    is_pro = models.BooleanField(
+        default=False,
+        verbose_name='Pro',
+    )
+
+    is_published = models.BooleanField(
+        default=True,
+        verbose_name="Published",
+    )
+
+    published_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name="Published At",
+    )
+
     video = models.FileField(
         upload_to='posts/videos/', 
         blank=True, 

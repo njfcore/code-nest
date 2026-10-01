@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 
 def login_view(request):
@@ -68,4 +69,17 @@ def register_view(request):
 @login_required
 def profile_view(request):
 
-    return render(request, 'accounts/profile.html')
+    active_subscription = request.user.subscriptions.filter(
+        expires_at__gt=timezone.now()
+    ).select_related('plan').order_by('-expires_at').first()
+
+    context = {
+        'active_subscription': active_subscription,
+        'is_pro': active_subscription is not None,
+    }
+
+    return render(
+        request,
+        'accounts/profile.html',
+        context,
+    )

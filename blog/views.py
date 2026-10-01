@@ -1,14 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from blog.models import Author, Category, Post
+from subscription.services import can_access_post
 
 
 def post_details(request, slug):
 
-    post = Post.objects.get(slug=slug)
+    post = get_object_or_404(Post, slug=slug)
+
+    has_access = can_access_post(request.user, post)
 
     context = {
 
         'post': post,
+        'has_access': has_access,
 
     }
 

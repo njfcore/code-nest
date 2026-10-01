@@ -32,7 +32,7 @@
 
             <span>→</span>
 
-            <a href="/posts/">
+            <a href="{% url 'blog:allposts' %}">
                 Articles
             </a>
 
@@ -109,8 +109,6 @@
 
         <article class="post-article">
 
-            <!-- Thumbnail -->
-
             {% if post.thumbnail %}
 
                 <div class="post-featured-image">
@@ -125,34 +123,109 @@
             {% endif %}
 
 
-            <!-- Article -->
+            <!-- =========================================
+                 ACCESS CONTROL
+            ========================================= -->
 
-            <div class="post-body">
+            {% if post.is_pro %}
 
-                {{ post.content|linebreaks }}
+                <!-- PRO POST -->
 
-            </div>
+                {% if has_access %}
 
+                    <!-- ACTIVE PRO SUBSCRIPTION -->
 
-            <!-- Video -->
+                    <div class="post-body">
+                        {{ post.content|linebreaks }}
+                    </div>
 
-            {% if post.video %}
+                    {% if post.video %}
 
-                <div class="post-video">
+                        <div class="post-video">
 
-                    <video controls preload="metadata">
+                            <video controls preload="metadata">
 
-                        <source
-                            src="{{ post.video.url }}"
-                            type="video/mp4"
-                        >
+                                <source
+                                    src="{{ post.video.url }}"
+                                    type="video/mp4"
+                                >
 
-                        Your browser does not support
-                        the video element.
+                                Your browser does not support
+                                the video element.
 
-                    </video>
+                            </video>
 
+                        </div>
+
+                    {% endif %}
+
+                {% else %}
+
+                    <!-- NO ACTIVE PRO SUBSCRIPTION -->
+
+                    <div class="post-locked">
+
+                        <div class="post-locked-icon">
+                            🔒
+                        </div>
+
+                        <h2>
+                            This is a Pro article
+                        </h2>
+
+                        <p>
+                            This article is available to Pro members.
+                            Upgrade your account to unlock the full content.
+                        </p>
+
+                        {% if user.is_authenticated %}
+
+                            <a href="{% url 'subscription:plans' %}" class="post-pro-button">
+                                Get Pro
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{% url 'accounts:login' %}"
+                                class="post-pro-button"
+                            >
+                                Login to Get Pro
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endif %}
+
+            {% else %}
+
+                <!-- NORMAL POST -->
+
+                <div class="post-body">
+                    {{ post.content|linebreaks }}
                 </div>
+
+                {% if post.video %}
+
+                    <div class="post-video">
+
+                        <video controls preload="metadata">
+
+                            <source
+                                src="{{ post.video.url }}"
+                                type="video/mp4"
+                            >
+
+                            Your browser does not support
+                            the video element.
+
+                        </video>
+
+                    </div>
+
+                {% endif %}
 
             {% endif %}
 
@@ -171,7 +244,10 @@
 
     <div class="container">
 
-        <a href="{% url 'blog:allposts' %}" class="post-back-link">
+        <a
+            href="{% url 'blog:allposts' %}"
+            class="post-back-link"
+        >
             ← Back to Articles
         </a>
 

@@ -47,7 +47,7 @@
                     Start Learning
                 </a>
 
-                <a href="#" class="hero-button hero-button-secondary">
+                <a href="{% url 'blog:allposts' %}" class="hero-button hero-button-secondary">
                     Explore Articles
                 </a>
 
@@ -60,11 +60,9 @@
             <div class="code-window">
 
                 <div class="code-window-header">
-
                     <span></span>
                     <span></span>
                     <span></span>
-
                 </div>
 
                 <div class="code-content">
@@ -212,7 +210,7 @@
                 </h2>
             </div>
 
-            <a href="#" class="section-link">
+            <a href="{% url 'blog:allposts' %}" class="section-link">
                 View All
                 <span>→</span>
             </a>
@@ -228,25 +226,42 @@
 
                     <article class="featured-card">
 
-                        {% if post.thumbnail %}
+                        <!-- Image -->
 
-                            <div class="post-image">
+                        <div class="post-image-wrapper">
 
-                                <img
-                                    src="{{ post.thumbnail.url }}"
-                                    alt="{{ post.title }}"
-                                >
+                            {% if post.thumbnail %}
 
-                            </div>
+                                <div class="post-image">
 
-                        {% else %}
+                                    <img
+                                        src="{{ post.thumbnail.url }}"
+                                        alt="{{ post.title }}"
+                                    >
 
-                            <div class="post-image post-image-placeholder">
-                                <span>&lt;/&gt;</span>
-                            </div>
+                                </div>
 
-                        {% endif %}
+                            {% else %}
 
+                                <div class="post-image post-image-placeholder">
+                                    <span>&lt;/&gt;</span>
+                                </div>
+
+                            {% endif %}
+
+
+                            {% if post.is_pro %}
+
+                                <span class="post-pro-badge">
+                                    PRO
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- Content -->
 
                         <div class="post-content">
 
@@ -257,10 +272,13 @@
                                 </span>
 
                                 {% if post.author %}
+
                                     <span>•</span>
+
                                     <span>
                                         {{ post.author.user.username }}
                                     </span>
+
                                 {% endif %}
 
                             </div>
@@ -280,9 +298,19 @@
                             {% endif %}
 
 
-                            <a href="{% url 'blog:postdetails' post.slug %}" class="post-link">
-                                Read Article
+                            <a
+                                href="{% url 'blog:postdetails' post.slug %}"
+                                class="post-link"
+                            >
+
+                                {% if post.is_pro %}
+                                    View Pro Article
+                                {% else %}
+                                    Read Article
+                                {% endif %}
+
                                 <span>→</span>
+
                             </a>
 
                         </div>
@@ -342,25 +370,42 @@
 
                     <article class="latest-card">
 
-                        {% if post.thumbnail %}
+                        <!-- Image -->
 
-                            <div class="latest-image">
+                        <div class="latest-image-wrapper">
 
-                                <img
-                                    src="{{ post.thumbnail.url }}"
-                                    alt="{{ post.title }}"
-                                >
+                            {% if post.thumbnail %}
 
-                            </div>
+                                <div class="latest-image">
 
-                        {% else %}
+                                    <img
+                                        src="{{ post.thumbnail.url }}"
+                                        alt="{{ post.title }}"
+                                    >
 
-                            <div class="latest-image latest-image-placeholder">
-                                <span>&lt;/&gt;</span>
-                            </div>
+                                </div>
 
-                        {% endif %}
+                            {% else %}
 
+                                <div class="latest-image latest-image-placeholder">
+                                    <span>&lt;/&gt;</span>
+                                </div>
+
+                            {% endif %}
+
+
+                            {% if post.is_pro %}
+
+                                <span class="post-pro-badge">
+                                    PRO
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- Content -->
 
                         <div class="latest-content">
 
@@ -371,10 +416,13 @@
                                 </span>
 
                                 {% if post.author %}
+
                                     <span>•</span>
+
                                     <span>
                                         {{ post.author.user.username }}
                                     </span>
+
                                 {% endif %}
 
                             </div>
@@ -394,9 +442,19 @@
                             {% endif %}
 
 
-                            <a href="{% url 'blog:postdetails' post.slug %}" class="post-link">
-                                Read Article
+                            <a
+                                href="{% url 'blog:postdetails' post.slug %}"
+                                class="post-link"
+                            >
+
+                                {% if post.is_pro %}
+                                    View Pro Article
+                                {% else %}
+                                    Read Article
+                                {% endif %}
+
                                 <span>→</span>
+
                             </a>
 
                         </div>
@@ -443,7 +501,7 @@
                 start building your skills today.
             </p>
 
-            <a href="#" class="hero-button hero-button-primary">
+            <a href="{% url 'blog:allposts' %}" class="hero-button hero-button-primary">
                 Explore Tutorials
             </a>
 

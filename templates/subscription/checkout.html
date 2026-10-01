@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/subscription.css' %}">
+{% endblock %}
+{% block title %}
+    Checkout — Code Nest
+{% endblock %}
+
+{% block content %}
+
+<section class="checkout-section">
+    <div class="container">
+
+        <div class="checkout-card">
+
+            <span class="section-label">
+                CHECKOUT
+            </span>
+
+            <h1>
+                {{ plan.name }}
+            </h1>
+
+            <div class="checkout-price">
+                {{ plan.price|floatformat:0 }}
+                $
+            </div>
+
+            <div class="checkout-details">
+                <div>
+                    <span>Duration</span>
+                    <strong>
+                        {{ plan.duration_days }} days
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Access</span>
+                    <strong>
+                        Full Pro Access
+                    </strong>
+                </div>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="subscription-button"
+                >
+                    Continue to Payment
+                </button>
+            </form>
+
+            <a
+                href="{% url 'subscription:plans' %}"
+                class="checkout-back"
+            >
+                ← Back to Plans
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

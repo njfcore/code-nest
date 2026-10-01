@@ -1,0 +1,293 @@
+/* =========================================================
+   PRO BADGE
+   ========================================================= */
+
+.post-image-wrapper,
+.latest-image-wrapper,
+.post-list-image-wrapper,
+.all-post-image-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.post-pro-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 5;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 48px;
+    height: 26px;
+    padding: 0 10px;
+
+    border: 1px solid rgba(201, 162, 39, 0.65);
+    border-radius: 999px;
+
+    background: rgba(17, 17, 17, 0.88);
+    color: #c9a227;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    line-height: 1;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.22),
+        0 0 0 1px rgba(201, 162, 39, 0.08);
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   PRO CARD
+   ========================================================= */
+
+.featured-card:has(.post-pro-badge),
+.latest-card:has(.post-pro-badge),
+.post-list-card:has(.post-pro-badge),
+.all-post-card:has(.post-pro-badge) {
+    position: relative;
+}
+
+.featured-card:has(.post-pro-badge)::after,
+.latest-card:has(.post-pro-badge)::after,
+.post-list-card:has(.post-pro-badge)::after,
+.all-post-card:has(.post-pro-badge)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    border: 1px solid rgba(201, 162, 39, 0.22);
+    border-radius: inherit;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   PRO CARD HOVER
+   ========================================================= */
+
+.featured-card:has(.post-pro-badge):hover,
+.latest-card:has(.post-pro-badge):hover,
+.post-list-card:has(.post-pro-badge):hover,
+.all-post-card:has(.post-pro-badge):hover {
+    border-color: rgba(201, 162, 39, 0.45);
+}
+
+
+/* =========================================================
+   LOCKED PRO CONTENT
+   ========================================================= */
+
+.post-locked {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 340px;
+    padding: 60px 30px;
+
+    text-align: center;
+
+    border: 1px solid rgba(201, 162, 39, 0.22);
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(201, 162, 39, 0.06),
+            rgba(17, 17, 17, 0.02)
+        );
+}
+
+
+/* subtle locked pattern */
+
+.post-locked::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border-radius: inherit;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(201, 162, 39, 0.10),
+            transparent 55%
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   LOCK ICON
+   ========================================================= */
+
+.post-locked-icon {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 64px;
+    height: 64px;
+    margin-bottom: 22px;
+
+    border: 1px solid rgba(201, 162, 39, 0.35);
+    border-radius: 50%;
+
+    background: rgba(17, 17, 17, 0.85);
+
+    color: #c9a227;
+
+    font-size: 25px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.20),
+        0 0 25px rgba(201, 162, 39, 0.08);
+}
+
+
+/* =========================================================
+   LOCKED TITLE
+   ========================================================= */
+
+.post-locked h2 {
+    position: relative;
+    z-index: 1;
+
+    margin: 0 0 12px;
+
+    color: #111111;
+
+    font-size: 25px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   LOCKED DESCRIPTION
+   ========================================================= */
+
+.post-locked p {
+    position: relative;
+    z-index: 1;
+
+    max-width: 560px;
+    margin: 0 0 26px;
+
+    color: #666666;
+
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   PRO BUTTON
+   ========================================================= */
+
+.post-pro-button {
+    position: relative;
+    z-index: 1;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 150px;
+    min-height: 46px;
+    padding: 0 22px;
+
+    border: 1px solid #c9a227;
+    border-radius: 8px;
+
+    background: #c9a227;
+    color: #111111;
+
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.post-pro-button:hover {
+    background: #111111;
+    color: #c9a227;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.18),
+        0 0 18px rgba(201, 162, 39, 0.12);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .post-pro-badge {
+        top: 10px;
+        right: 10px;
+
+        min-width: 44px;
+        height: 24px;
+
+        padding: 0 8px;
+
+        font-size: 10px;
+    }
+
+    .post-locked {
+        min-height: 300px;
+        padding: 45px 20px;
+    }
+
+    .post-locked-icon {
+        width: 58px;
+        height: 58px;
+
+        margin-bottom: 18px;
+
+        font-size: 22px;
+    }
+
+    .post-locked h2 {
+        font-size: 21px;
+    }
+
+    .post-locked p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .post-pro-button {
+        min-height: 44px;
+        padding: 0 20px;
+    }
+}
