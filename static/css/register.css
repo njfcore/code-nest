@@ -775,6 +775,15 @@ input {
     padding-left: 15px;
 }
 
+.form-alert-success {
+    border-color: rgba(45, 140, 80, 0.35);
+    background: rgba(45, 140, 80, 0.08);
+    color: #2d8c50;
+}
+
+.form-alert-success svg {
+    stroke: #2d8c50;
+}
 
 /* =========================================
    BUTTON
@@ -956,6 +965,48 @@ input {
     gap: 8px;
 }
 
+/* =========================
+   Resend code
+   ========================= */
+
+.resend-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-top: 18px;
+    padding-top: 18px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.resend-form > span {
+    color: #9aa6b2;
+    font-size: 14px;
+}
+
+.resend-button {
+    padding: 0;
+
+    border: none;
+    background: transparent;
+
+    color: #f0b90b;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+}
+
+.resend-button:hover {
+    color: #d9a400;
+    text-decoration: underline;
+}
 
 /* =========================================
    FOOTER

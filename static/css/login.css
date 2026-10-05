@@ -520,6 +520,52 @@ body {
     font-size: 12px;
 }
 
+/* =========================
+   Success message
+   ========================= */
+
+.login-success {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    padding: 14px 16px;
+    margin-bottom: 22px;
+
+    border: 1px solid rgba(45, 140, 80, 0.35);
+    border-radius: 10px;
+
+    background: rgba(45, 140, 80, 0.08);
+    color: #2d8c50;
+}
+
+.login-success .success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 22px;
+    height: 22px;
+
+    border-radius: 50%;
+
+    background: #2d8c50;
+    color: #fff;
+
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.login-success p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #2d8c50;
+}
+
 
 /* =========================
    Remember Me

@@ -1,0 +1,244 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Verify your phone number and complete your Code Nest account.">
+
+    <title>Verify Phone — Code Nest</title>
+
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background">
+        <div class="background-grid"></div>
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+
+        <div class="code-fragment fragment-one">&lt;/&gt;</div>
+        <div class="code-fragment fragment-two">{ }</div>
+        <div class="code-fragment fragment-three">01</div>
+        <div class="code-fragment fragment-four">PY</div>
+    </div>
+
+
+    <main class="register-page">
+
+        <section class="register-card">
+
+            <!-- Brand -->
+            <div class="brand">
+
+                <div class="brand-mark">
+                    <span>&lt;/&gt;</span>
+                </div>
+
+                <div class="brand-name">
+                    <span class="brand-code">Code</span>
+                    <span class="brand-nest">Nest</span>
+                </div>
+
+            </div>
+
+
+            <!-- Heading -->
+            <div class="register-header">
+
+                <div class="eyebrow">
+                    <span class="eyebrow-line"></span>
+                    <span>VERIFY YOUR PHONE</span>
+                </div>
+
+                <h1>
+                    Almost
+                    <span>there.</span>
+                </h1>
+
+                <p>
+                    We've sent a verification code to your phone number.
+                    Enter the code below to complete your registration.
+                </p>
+
+            </div>
+
+
+            <!-- Verification Form -->
+            <form method="post" class="register-form" id="verificationForm">
+
+                {% csrf_token %}
+
+
+                <!-- Resend success -->
+                {% if resend_success %}
+                    <div class="form-alert form-alert-success">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="m5 12 4 4L19 6" />
+                        </svg>
+                        <div>{{ resend_success }}</div>
+                    </div>
+                {% endif %}
+
+
+                <!-- Resend error -->
+                {% if resend_error %}
+                    <div class="form-alert">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 9v4M12 17h.01M10.29 3.86
+                                     1.82 18a2 2 0 0 0 1.71 3h16.94
+                                     a2 2 0 0 0 1.71-3L13.71 3.86
+                                     a2 2 0 0 0-3.42 0Z" />
+                        </svg>
+                        <div>{{ resend_error }}</div>
+                    </div>
+                {% endif %}
+
+
+                <!-- Verify error -->
+                {% if error %}
+                    <div class="form-alert">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 9v4M12 17h.01M10.29 3.86
+                                     1.82 18a2 2 0 0 0 1.71 3h16.94
+                                     a2 2 0 0 0 1.71-3L13.71 3.86
+                                     a2 2 0 0 0-3.42 0Z" />
+                        </svg>
+                        <div>{{ error }}</div>
+                    </div>
+                {% endif %}
+
+
+                <!-- Phone -->
+                <div class="field-group">
+
+                    <label>
+                        Phone number
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2
+                                         19.79 19.79 0 0 1-8.63-3.07
+                                         19.5 19.5 0 0 1-6-6
+                                         19.79 19.79 0 0 1-3.07-8.67
+                                         A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72
+                                         12.84 12.84 0 0 0 .7 2.81
+                                         2 2 0 0 1-.45 2.11L8.09 9.91
+                                         a16 16 0 0 0 6 6l1.27-1.27
+                                         a2 2 0 0 1 2.11-.45
+                                         12.84 12.84 0 0 0 2.81.7
+                                         A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                        </span>
+
+                        <input type="tel" value="{{ phone_number }}" readonly />
+
+                    </div>
+
+                </div>
+
+
+                <!-- OTP -->
+                <div class="field-group">
+
+                    <label for="id_code">
+                        Verification code
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="14" rx="2" />
+                                <path d="M7 9h.01M11 9h.01M15 9h.01" />
+                                <path d="M7 13h.01M11 13h.01M15 13h.01" />
+                                <path d="M7 17h10" />
+                            </svg>
+                        </span>
+
+                        <input type="text" name="code" id="id_code" placeholder="Enter 6-digit code" inputmode="numeric"
+                            autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required autofocus />
+
+                    </div>
+
+                    <div class="field-hint">
+                        The verification code is valid for 5 minutes.
+                    </div>
+
+                </div>
+
+
+                <!-- Submit -->
+                <button type="submit" class="register-button" id="verifyButton">
+                    <span class="button-content">
+
+                        <span>Verify & create account</span>
+
+                        <svg viewBox="0 0 24 24">
+                            <path d="M5 12h14" />
+                            <path d="m13 6 6 6-6 6" />
+                        </svg>
+
+                    </span>
+
+                    <span class="button-loader"></span>
+                </button>
+
+            </form>
+
+
+            <!-- Resend code -->
+            <form method="post" action="{% url 'accounts:register_resend' %}" class="resend-form">
+                {% csrf_token %}
+
+                <span>Didn't receive the code?</span>
+
+                <button type="submit" class="resend-button">
+                    Resend code
+                </button>
+            </form>
+
+
+            <!-- Back -->
+            <div class="login-prompt">
+
+                <span>Entered the wrong number?</span>
+
+                <a href="{% url 'accounts:register' %}">
+                    Go back
+                    <span>→</span>
+                </a>
+
+            </div>
+
+
+            <!-- Footer -->
+            <div class="register-footer">
+
+                <span class="footer-dot"></span>
+
+                <span>CODE NEST</span>
+
+                <span class="footer-separator">•</span>
+
+                <span>LEARN. BUILD. CREATE.</span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+</body>
+
+</html>

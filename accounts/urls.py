@@ -18,4 +18,8 @@ urlpatterns = [
 
     path('profile/', profile_view, name= 'profile'),
 
+    path('register/verify/', register_verify_view, name='register_verify'),
+
+    path('register/resend/', register_resend_view, name='register_resend'),
+
 ]
