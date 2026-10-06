@@ -36,7 +36,7 @@
             {# ---------- Success / Info messages ---------- #}
             {% if messages %}
                 <div class="login-success">
-                    <span class="success-icon">?</span>
+                    <span class="success-icon">&#10003;</span>
 
                     <div>
                         {% for message in messages %}
@@ -200,6 +200,28 @@
             </form>
 
 
+            <!-- Divider -->
+            <div class="login-divider">
+                <span>or</span>
+            </div>
+
+
+            <!-- OTP Login -->
+            <a
+                href="{% url 'accounts:login_otp' %}"
+                class="login-otp-link"
+            >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="14" rx="2"/>
+                    <path d="M7 9h.01M11 9h.01M15 9h.01"/>
+                    <path d="M7 13h.01M11 13h.01M15 13h.01"/>
+                    <path d="M7 17h10"/>
+                </svg>
+                <span>Login with OTP</span>
+            </a>
+
+
+            <!-- Footer -->
             <div class="login-footer">
 
                 <span>Don't have an account?</span>

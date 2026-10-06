@@ -11,9 +11,9 @@ from django.utils import timezone
 from django.db import IntegrityError, transaction
 from django.contrib import messages
 
-from .forms import RegisterForm
+from .forms import RegisterForm, PhoneLoginForm, PhoneOTPForm
 from .models import PhoneVerification, UserProfile
-from .services import create_otp, verify_otp
+from .services import create_otp, verify_otp, get_user_by_phone
 
 
 def login_view(request):
@@ -59,6 +59,143 @@ def logout_view(request):
 
     return redirect('/')
 
+def login_otp_view(request):
+    """
+    Step 1 of OTP login: ask for the phone number.
+    """
+
+    if request.user.is_authenticated:
+        return redirect('/')
+
+    form = PhoneLoginForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+
+        phone_number = form.cleaned_data['phone_number']
+
+        try:
+            verification = create_otp(
+                phone_number,
+                PhoneVerification.LOGIN,
+            )
+        except ValueError as error:
+            form.add_error(None, str(error))
+            return render(
+                request,
+                'accounts/login_otp.html',
+                {'form': form},
+            )
+
+        request.session['login_otp_phone'] = phone_number
+        request.session['login_otp_verification_id'] = verification.id
+        request.session.set_expiry(600)  # 10 minutes
+
+        return redirect('/accounts/login/otp/verify/')
+
+    return render(
+        request,
+        'accounts/login_otp.html',
+        {'form': form},
+    )
+
+
+def login_otp_verify_view(request):
+    """
+    Step 2 of OTP login: verify the code and log the user in.
+    """
+
+    if request.user.is_authenticated:
+        return redirect('/')
+
+    phone_number = request.session.get('login_otp_phone')
+    verification_id = request.session.get('login_otp_verification_id')
+
+    if not phone_number or not verification_id:
+        return redirect('/accounts/login/otp/')
+
+    resend_error = request.session.pop('login_otp_resend_error', None)
+    resend_success = request.session.pop('login_otp_resend_success', None)
+
+    form = PhoneOTPForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+
+        code = form.cleaned_data['code']
+
+        if verify_otp(
+            phone_number,
+            code,
+            PhoneVerification.LOGIN,
+            verification_id=verification_id,
+        ):
+            user = get_user_by_phone(phone_number)
+
+            request.session.pop('login_otp_phone', None)
+            request.session.pop('login_otp_verification_id', None)
+
+            if user is None:
+                messages.error(
+                    request,
+                    'No account is associated with this phone number.'
+                )
+                return redirect('/accounts/login/otp/')
+
+            login(request, user)
+
+            messages.success(
+                request,
+                f'Welcome back, {user.username}!'
+            )
+
+            return redirect('/')
+
+        form.add_error(
+            'code',
+            'Invalid or expired verification code.',
+        )
+
+    context = {
+        'form': form,
+        'phone_number': phone_number,
+        'resend_error': resend_error,
+        'resend_success': resend_success,
+    }
+
+    return render(
+        request,
+        'accounts/login_otp_verify.html',
+        context,
+    )
+
+
+def login_otp_resend_view(request):
+    """
+    Resend the OTP for the login flow (Post/Redirect/Get).
+    """
+
+    if request.user.is_authenticated:
+        return redirect('/')
+
+    phone_number = request.session.get('login_otp_phone')
+
+    if not phone_number:
+        return redirect('/accounts/login/otp/')
+
+    try:
+        verification = create_otp(
+            phone_number,
+            PhoneVerification.LOGIN,
+        )
+    except ValueError as error:
+        request.session['login_otp_resend_error'] = str(error)
+        return redirect('/accounts/login/otp/verify/')
+
+    request.session['login_otp_verification_id'] = verification.id
+    request.session['login_otp_resend_success'] = (
+        'A new verification code has been sent to your phone.'
+    )
+
+    return redirect('/accounts/login/otp/verify/')
 
 def register_view(request):
 

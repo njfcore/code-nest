@@ -2,8 +2,9 @@ import secrets
 from datetime import timedelta
 
 from django.utils import timezone
+from django.contrib.auth import get_user_model
 
-from .models import PhoneVerification
+from .models import PhoneVerification, UserProfile
 
 
 OTP_EXPIRATION_MINUTES = 5
@@ -106,3 +107,21 @@ def verify_otp(
     verification.save(update_fields=['attempts', 'is_used'])
 
     return True
+
+def get_user_by_phone(phone_number):
+    """
+    Return the user associated with the given phone number,
+    or None if no profile exists for that phone.
+    """
+
+    User = get_user_model()
+
+    profile = UserProfile.objects.filter(
+        phone_number=phone_number,
+        phone_verified=True,
+    ).select_related('user').first()
+
+    if profile is None:
+        return None
+
+    return profile.user

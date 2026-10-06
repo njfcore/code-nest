@@ -14,6 +14,12 @@ urlpatterns = [
 
     path('login/', login_view, name= 'login'),
 
+    path('login/otp/', login_otp_view, name='login_otp'),
+
+    path('login/otp/verify/' ,login_otp_verify_view, name='login_otp_verify'),
+
+    path('login/otp/resend/', login_otp_resend_view, name='login_otp_resend'),
+
     path('register/', register_view, name= 'register'),
 
     path('profile/', profile_view, name= 'profile'),
