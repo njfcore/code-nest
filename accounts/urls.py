@@ -28,4 +28,16 @@ urlpatterns = [
 
     path('register/resend/', register_resend_view, name='register_resend'),
 
+    path('change-password/', change_password_view, name='change_password'),
+
+    path('change-password/verify/' ,change_password_verify_view, name='change_password_verify'),
+
+    path('change-password/resend/', change_password_resend_view, name='change_password_resend'),
+
+    path('edit-profile/', edit_profile_view, name='edit_profile'),
+
+    path('edit-profile/verify/', edit_profile_verify_view, name='edit_profile_verify'),
+
+    path('edit-profile/resend/', edit_profile_resend_view, name='edit_profile_resend'),
+
 ]

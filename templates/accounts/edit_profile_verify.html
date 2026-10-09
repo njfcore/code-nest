@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Verify Phone — Code Nest
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile_actions.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="profile-action-page">
+    <div class="container">
+
+        <div class="profile-action-breadcrumb">
+            <a href="/">Home</a>
+            <span>→</span>
+            <a href="{% url 'accounts:profile' %}">Profile</a>
+            <span>→</span>
+            <a href="{% url 'accounts:edit_profile' %}">Edit</a>
+            <span>→</span>
+            <strong>Verify</strong>
+        </div>
+
+        <div class="profile-action-card">
+
+            <div class="profile-action-header">
+
+                {% if flow == 'verify_old_phone' %}
+
+                <span class="profile-action-eyebrow">STEP 1 OF 2</span>
+                <h1>Confirm your current number</h1>
+                <p>
+                    To change your phone number, we first need to verify
+                    your identity. We've sent a code to your current number
+                    <strong>{{ phone_number }}</strong>.
+                </p>
+
+                {% elif flow == 'verify_new_phone' %}
+
+                <span class="profile-action-eyebrow">STEP 2 OF 2</span>
+                <h1>Verify your new number</h1>
+                <p>
+                    Now we need to confirm your new phone number.
+                    We've sent a code to <strong>{{ phone_number }}</strong>.
+                </p>
+
+                {% else %}
+
+                <span class="profile-action-eyebrow">PHONE VERIFICATION</span>
+                <h1>Verify your number</h1>
+                <p>
+                    We've sent a code to <strong>{{ phone_number }}</strong>.
+                    Enter the code below to confirm your number.
+                </p>
+
+                {% endif %}
+
+            </div>
+
+
+            {% if resend_success %}
+            <div class="form-alert form-alert-success">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m5 12 4 4L19 6" />
+                </svg>
+                <div>{{ resend_success }}</div>
+            </div>
+            {% endif %}
+
+            {% if resend_error %}
+            <div class="form-alert">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 9v4M12 17h.01M10.29 3.86
+                                 1.82 18a2 2 0 0 0 1.71 3h16.94
+                                 a2 2 0 0 0 1.71-3L13.71 3.86
+                                 a2 2 0 0 0-3.42 0Z" />
+                </svg>
+                <div>{{ resend_error }}</div>
+            </div>
+            {% endif %}
+
+
+            <form method="post" class="profile-action-form">
+
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="{{ form.code.id_for_label }}">
+                        Verification code
+                    </label>
+                    <div class="input-wrapper">
+                        {{ form.code }}
+                    </div>
+                    {% if form.code.errors %}
+                    <div class="field-error">
+                        {{ form.code.errors|striptags }}
+                    </div>
+                    {% endif %}
+                    <div class="field-hint">
+                        The code is valid for 5 minutes.
+                    </div>
+                </div>
+
+                <button type="submit" class="profile-action-submit">
+                    Verify &amp; Save
+                    <span>→</span>
+                </button>
+
+            </form>
+
+
+            <form method="post" action="{% url 'accounts:edit_profile_resend' %}" class="resend-form">
+                {% csrf_token %}
+                <span>Didn't receive the code?</span>
+                <button type="submit" class="resend-button">
+                    Resend code
+                </button>
+            </form>
+
+
+            <div class="profile-action-footer">
+                <a href="{% url 'accounts:edit_profile' %}">
+                    ← Cancel and go back
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

@@ -9,7 +9,8 @@ Profile — Code Nest
 Manage your Code Nest profile and subscription.
 {% endblock %}
 
-{% block extra_css %} <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -17,38 +18,38 @@ Manage your Code Nest profile and subscription.
 <section class="profile-page">
     <div class="container">
 
-    <div class="profile-breadcrumb">
-        <a href="/">Home</a>
-        <span>→</span>
-        <strong>Profile</strong>
-    </div>
-
-    <div class="profile-header">
-
-        <div class="profile-avatar">
-            {{ request.user.username|first|upper }}
+        <div class="profile-breadcrumb">
+            <a href="/">Home</a>
+            <span>→</span>
+            <strong>Profile</strong>
         </div>
 
-        <div class="profile-header-info">
-            <span class="profile-eyebrow">YOUR ACCOUNT</span>
+        <div class="profile-header">
 
-            <h1>
-                {{ request.user.username }}
-            </h1>
+            <div class="profile-avatar">
+                {{ request.user.username|first|upper }}
+            </div>
 
-            {% if request.user.email %}
+            <div class="profile-header-info">
+                <span class="profile-eyebrow">YOUR ACCOUNT</span>
+
+                <h1>
+                    {{ request.user.username }}
+                </h1>
+
+                {% if request.user.email %}
                 <p>{{ request.user.email }}</p>
-            {% endif %}
+                {% endif %}
+            </div>
+
         </div>
 
-    </div>
 
+        <!-- Subscription -->
 
-    <!-- Subscription -->
+        <section class="profile-subscription-card">
 
-    <section class="profile-subscription-card">
-
-        {% if is_pro and active_subscription %}
+            {% if is_pro and active_subscription %}
 
             <div class="profile-subscription-status">
                 <span class="profile-pro-badge">
@@ -97,7 +98,7 @@ Manage your Code Nest profile and subscription.
 
             </div>
 
-        {% else %}
+            {% else %}
 
             <div class="profile-subscription-status">
                 <span class="profile-free-badge">
@@ -124,10 +125,7 @@ Manage your Code Nest profile and subscription.
 
                 <div class="profile-subscription-action">
 
-                    <a
-                        href="{% url 'subscription:plans' %}"
-                        class="profile-pro-button"
-                    >
+                    <a href="{% url 'subscription:plans' %}" class="profile-pro-button">
                         Upgrade to Pro
                         <span>→</span>
                     </a>
@@ -136,123 +134,115 @@ Manage your Code Nest profile and subscription.
 
             </div>
 
-        {% endif %}
-
-    </section>
-
-
-    <div class="profile-grid">
-
-        <section class="profile-card">
-
-            <div class="profile-card-header">
-
-                <div>
-                    <span class="profile-section-label">
-                        ACCOUNT
-                    </span>
-
-                    <h2>
-                        Account Information
-                    </h2>
-                </div>
-
-            </div>
-
-            <div class="profile-info-list">
-
-                <div class="profile-info-item">
-                    <span>Username</span>
-                    <strong>
-                        {{ request.user.username }}
-                    </strong>
-                </div>
-
-                <div class="profile-info-item">
-                    <span>Email</span>
-
-                    <strong>
-                        {% if request.user.email %}
-                            {{ request.user.email }}
-                        {% else %}
-                            Not provided
-                        {% endif %}
-                    </strong>
-                </div>
-
-                <div class="profile-info-item">
-                    <span>Member since</span>
-
-                    <strong>
-                        {{ request.user.date_joined|date:"M d, Y" }}
-                    </strong>
-                </div>
-
-                <div class="profile-info-item">
-                    <span>Last login</span>
-
-                    <strong>
-                        {% if request.user.last_login %}
-                            {{ request.user.last_login|date:"M d, Y" }}
-                        {% else %}
-                            First login
-                        {% endif %}
-                    </strong>
-                </div>
-
-            </div>
+            {% endif %}
 
         </section>
 
 
-        <aside class="profile-card profile-actions-card">
+        <div class="profile-grid">
 
-            <span class="profile-section-label">
-                ACCOUNT ACTIONS
-            </span>
+            <section class="profile-card">
 
-            <h2>
-                Manage your account
-            </h2>
+                <div class="profile-card-header">
 
-            <p>
-                Keep your account information up to date
-                and manage your Code Nest session.
-            </p>
+                    <div>
+                        <span class="profile-section-label">
+                            ACCOUNT
+                        </span>
 
-            <div class="profile-actions">
+                        <h2>
+                            Account Information
+                        </h2>
+                    </div>
 
-                <a
-                    href="#"
-                    class="profile-action-button"
-                >
-                    Edit Profile
-                    <span>→</span>
-                </a>
+                </div>
 
-                <a
-                    href="#"
-                    class="profile-action-button profile-action-secondary"
-                >
-                    Change Password
-                    <span>→</span>
-                </a>
+                <div class="profile-info-list">
 
-                <a
-                    href="{% url 'accounts:logout' %}"
-                    class="profile-action-button profile-logout"
-                >
-                    Log Out
-                    <span>→</span>
-                </a>
+                    <div class="profile-info-item">
+                        <span>Username</span>
+                        <strong>
+                            {{ request.user.username }}
+                        </strong>
+                    </div>
 
-            </div>
+                    <div class="profile-info-item">
+                        <span>Phone Number</span>
 
-        </aside>
+                        <strong>
+                            {% if profile and profile.phone_number %}
+                            {{ profile.phone_number }}
+                            {% else %}
+                            Not provided
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div class="profile-info-item">
+                        <span>Member since</span>
+
+                        <strong>
+                            {{ request.user.date_joined|date:"M d, Y" }}
+                        </strong>
+                    </div>
+
+                    <div class="profile-info-item">
+                        <span>Last login</span>
+
+                        <strong>
+                            {% if request.user.last_login %}
+                            {{ request.user.last_login|date:"M d, Y" }}
+                            {% else %}
+                            First login
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <aside class="profile-card profile-actions-card">
+
+                <span class="profile-section-label">
+                    ACCOUNT ACTIONS
+                </span>
+
+                <h2>
+                    Manage your account
+                </h2>
+
+                <p>
+                    Keep your account information up to date
+                    and manage your Code Nest session.
+                </p>
+
+                <div class="profile-actions">
+
+                    <a href="{% url 'accounts:edit_profile' %}" class="profile-action-button">
+                        Edit Profile
+                        <span>&rarr;</span>
+                    </a>
+
+                    <a href="{% url 'accounts:change_password' %}"
+                        class="profile-action-button profile-action-secondary">
+                        Change Password
+                        <span>?</span>
+                    </a>
+
+                    <a href="{% url 'accounts:logout' %}" class="profile-action-button profile-logout">
+                        Log Out
+                        <span>→</span>
+                    </a>
+
+                </div>
+
+            </aside>
+
+        </div>
 
     </div>
-
-</div>
 
 </section>
 

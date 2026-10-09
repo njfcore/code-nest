@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Edit Profile — Code Nest
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/profile_actions.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="profile-action-page">
+    <div class="container">
+
+        <div class="profile-action-breadcrumb">
+            <a href="/">Home</a>
+            <span>→</span>
+            <a href="{% url 'accounts:profile' %}">Profile</a>
+            <span>→</span>
+            <strong>Edit Profile</strong>
+        </div>
+
+        <div class="profile-action-card">
+
+            <div class="profile-action-header">
+                <span class="profile-action-eyebrow">ACCOUNT</span>
+                <h1>Edit your profile</h1>
+                <p>
+                    Update your username and phone number.
+                    If you change your phone number, we'll send
+                    a verification code to confirm it.
+                </p>
+            </div>
+
+
+            {% if form.non_field_errors %}
+                <div class="form-alert">
+                    <div>{{ form.non_field_errors }}</div>
+                </div>
+            {% endif %}
+
+
+            <form method="post" class="profile-action-form">
+
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">
+                        Username
+                    </label>
+                    <div class="input-wrapper">
+                        {{ form.username }}
+                    </div>
+                    {% if form.username.errors %}
+                        <div class="field-error">
+                            {{ form.username.errors|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.phone_number.id_for_label }}">
+                        Phone number
+                    </label>
+                    <div class="input-wrapper">
+                        {{ form.phone_number }}
+                    </div>
+                    {% if form.phone_number.errors %}
+                        <div class="field-error">
+                            {{ form.phone_number.errors|striptags }}
+                        </div>
+                    {% endif %}
+                    <div class="field-hint">
+                        Changing your phone number requires
+                        OTP verification.
+                    </div>
+                </div>
+
+                <button type="submit" class="profile-action-submit">
+                    Save Changes
+                    <span>→</span>
+                </button>
+
+            </form>
+
+
+            <div class="profile-action-footer">
+                <a href="{% url 'accounts:profile' %}">
+                    ← Back to profile
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

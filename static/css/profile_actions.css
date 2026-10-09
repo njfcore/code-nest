@@ -1,0 +1,270 @@
+/* =========================================
+   Profile Action Pages (Change Password / Edit Profile)
+   ========================================= */
+
+.profile-action-page {
+    padding: 60px 0 90px;
+    min-height: 70vh;
+}
+
+.profile-action-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+
+    margin-bottom: 38px;
+
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.profile-action-breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.profile-action-breadcrumb a:hover {
+    color: var(--color-primary);
+}
+
+.profile-action-breadcrumb strong {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.profile-action-card {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 42px;
+
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
+}
+
+.profile-action-header {
+    margin-bottom: 32px;
+}
+
+.profile-action-eyebrow {
+    display: block;
+    margin-bottom: 10px;
+
+    color: var(--color-primary);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.profile-action-header h1 {
+    margin: 0 0 14px;
+
+    color: var(--color-text);
+    font-size: 1.8rem;
+    line-height: 1.2;
+}
+
+.profile-action-header p {
+    margin: 0;
+
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.profile-action-header strong {
+    color: var(--color-text);
+}
+
+.profile-action-form .form-group {
+    margin-bottom: 22px;
+}
+
+.profile-action-form label {
+    display: block;
+    margin-bottom: 8px;
+
+    color: var(--color-text);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.profile-action-form .input-wrapper input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 16px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--color-text);
+
+    font-size: 0.95rem;
+    font-family: inherit;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.profile-action-form .input-wrapper input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: rgba(240, 185, 11, 0.04);
+}
+
+.profile-action-form .input-wrapper input::placeholder {
+    color: #6b7684;
+}
+
+.profile-action-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    min-height: 48px;
+    margin-top: 8px;
+
+    border: 1px solid var(--color-primary);
+    border-radius: 10px;
+
+    background: var(--color-primary);
+    color: #0b0f14;
+
+    font-size: 0.92rem;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.profile-action-submit:hover {
+    background: transparent;
+    color: var(--color-primary);
+    transform: translateY(-2px);
+}
+
+.profile-action-footer {
+    margin-top: 28px;
+    padding-top: 22px;
+
+    border-top: 1px solid var(--color-border);
+
+    text-align: center;
+}
+
+.profile-action-footer a {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.profile-action-footer a:hover {
+    color: var(--color-primary);
+}
+
+/* Resend form (shared) */
+
+.resend-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-top: 20px;
+    padding-top: 20px;
+
+    border-top: 1px solid var(--color-border);
+}
+
+.resend-form > span {
+    color: var(--color-text-muted);
+    font-size: 0.88rem;
+}
+
+.resend-button {
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    color: var(--color-primary);
+
+    font-size: 0.88rem;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.resend-button:hover {
+    text-decoration: underline;
+}
+
+/* Alerts (shared with other pages) */
+
+.form-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    padding: 12px 16px;
+    margin-bottom: 18px;
+
+    border: 1px solid rgba(220, 60, 60, 0.30);
+    border-radius: 10px;
+
+    background: rgba(220, 60, 60, 0.06);
+    color: #ff6b6b;
+
+    font-size: 0.88rem;
+}
+
+.form-alert svg {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+}
+
+.form-alert-success {
+    border-color: rgba(45, 140, 80, 0.35);
+    background: rgba(45, 140, 80, 0.08);
+    color: #2d8c50;
+}
+
+.field-error {
+    margin-top: 6px;
+    color: #ff6b6b;
+    font-size: 0.82rem;
+}
+
+.field-hint {
+    margin-top: 6px;
+    color: var(--color-text-muted);
+    font-size: 0.78rem;
+}
+
+@media (max-width: 600px) {
+    .profile-action-card {
+        padding: 28px 22px;
+        border-radius: 14px;
+    }
+
+    .profile-action-header h1 {
+        font-size: 1.5rem;
+    }
+}

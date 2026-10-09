@@ -593,6 +593,24 @@ main {
     font-size: 13px;
 }
 
+.github-link {
+    margin: 0;
+
+    color: #66717d;
+
+    font-size: 13px;
+}
+
+.github-link a {
+    color: var(--color-primary);
+
+    font-size: 22px;
+}
+
+.github-link a:hover {
+    color: #f8fcff;
+}
+
 .footer-legal {
     display: flex;
     align-items: center;

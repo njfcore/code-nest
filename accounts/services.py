@@ -125,3 +125,16 @@ def get_user_by_phone(phone_number):
         return None
 
     return profile.user
+
+def user_has_verified_phone(user):
+    """
+    Returns True if the user has a verified phone number.
+    """
+    profile = getattr(user, 'profile', None)
+
+    if profile is None:
+        return False
+
+    return bool(
+        profile.phone_number and profile.phone_verified
+    )

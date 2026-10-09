@@ -33,7 +33,7 @@
             <ul class="footer-links">
 
                 <li>
-                    <a href="#">
+                    <a href="/">
                         Home
                     </a>
                 </li>
@@ -45,13 +45,13 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{% url 'blog:allposts' %}">
                         Blog
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="/about/">
                         About
                     </a>
                 </li>
@@ -111,7 +111,7 @@
                 {% if user.is_authenticated %}
 
                     <li>
-                        <a href="#">
+                        <a href="{% url 'accounts:profile' %}">
                             Profile
                         </a>
                     </li>
@@ -155,6 +155,17 @@
                 All rights reserved.
             </p>
 
+            <p class="github-link">
+
+                Designed &amp; Developed by
+
+                <a href="https://github.com/njfcore" target="_blank" rel="noopener noreferrer">
+
+                    njfcore
+
+                </a>
+
+            </p>
 
             <div class="footer-legal">
 

@@ -164,7 +164,7 @@
                                 {{ category.subtitle }}
                             </p>
 
-                            <a href="#" class="category-link">
+                            <a href="{% url 'blog:postlist' category.slug %}" class="category-link">
                                 Explore
                                 <span>→</span>
                             </a>
