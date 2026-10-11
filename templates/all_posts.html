@@ -51,11 +51,11 @@
 
     <div class="container">
 
-        {% if posts %}
+        {% if page_obj %}
 
             <div class="all-posts-grid">
 
-                {% for post in posts %}
+                {% for post in page_obj %}
 
                     <article class="all-post-card">
 
@@ -170,6 +170,116 @@
                 {% endfor %}
 
             </div>
+
+
+            <!-- Pagination -->
+
+            {% if page_obj.has_other_pages %}
+
+                <nav class="pagination" aria-label="Article pagination">
+
+                    {% if page_obj.has_previous %}
+
+                        <a
+                            href="?page=1"
+                            class="pagination-link pagination-arrow"
+                            aria-label="First page"
+                        >
+                            &laquo;
+                        </a>
+
+                        <a
+                            href="?page={{ page_obj.previous_page_number }}"
+                            class="pagination-link pagination-arrow"
+                            aria-label="Previous page"
+                        >
+                            &larr;
+                        </a>
+
+                    {% else %}
+
+                        <span
+                            class="pagination-link pagination-arrow disabled"
+                            aria-disabled="true"
+                        >
+                            &laquo;
+                        </span>
+
+                        <span
+                            class="pagination-link pagination-arrow disabled"
+                            aria-disabled="true"
+                        >
+                            &larr;
+                        </span>
+
+                    {% endif %}
+
+
+                    {% for num in page_obj.paginator.page_range %}
+
+                        {% if page_obj.number == num %}
+
+                            <span
+                                class="pagination-link active"
+                                aria-current="page"
+                            >
+                                {{ num }}
+                            </span>
+
+                        {% else %}
+
+                            <a
+                                href="?page={{ num }}"
+                                class="pagination-link"
+                            >
+                                {{ num }}
+                            </a>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                    {% if page_obj.has_next %}
+
+                        <a
+                            href="?page={{ page_obj.next_page_number }}"
+                            class="pagination-link pagination-arrow"
+                            aria-label="Next page"
+                        >
+                            &rarr;
+                        </a>
+
+                        <a
+                            href="?page={{ page_obj.paginator.num_pages }}"
+                            class="pagination-link pagination-arrow"
+                            aria-label="Last page"
+                        >
+                            &raquo;
+                        </a>
+
+                    {% else %}
+
+                        <span
+                            class="pagination-link pagination-arrow disabled"
+                            aria-disabled="true"
+                        >
+                            &rarr;
+                        </span>
+
+                        <span
+                            class="pagination-link pagination-arrow disabled"
+                            aria-disabled="true"
+                        >
+                            &raquo;
+                        </span>
+
+                    {% endif %}
+
+                </nav>
+
+            {% endif %}
+
 
         {% else %}
 
