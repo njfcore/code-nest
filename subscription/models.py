@@ -41,7 +41,8 @@ class Subscription(models.Model):
         return self.expires_at > timezone.now()
 
     def __str__(self):
-        return f"{self.user.username} - {self.plan.name}"
+        plan_name = self.plan.name if self.plan else 'No plan'
+        return f"{self.user.username} - {plan_name}"
 
 
 class Payment(models.Model):
@@ -76,6 +77,25 @@ class Payment(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     paid_at = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+
+    bank_tracking_code = models.CharField(
+        max_length=64,
+        unique=True,
+        null=True,
+        blank=True,
+    )
+    ref_id = models.CharField(
+        max_length=100,
+        blank=True,
+        default='',
+    )
+    subscription = models.OneToOneField(
+        Subscription,
+        on_delete=models.SET_NULL,
+        related_name='payment',
         null=True,
         blank=True,
     )

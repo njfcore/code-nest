@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/subscription.css' %}">
+{% endblock %}
+
+{% block title %}
+    Payment Failed — Code Nest
+{% endblock %}
+
+{% block content %}
+
+<section class="checkout-section">
+    <div class="container">
+
+        <div class="checkout-card">
+
+            <span class="section-label">PAYMENT FAILED</span>
+
+            <h1>Payment was not completed</h1>
+
+            <p>
+                Your payment was canceled or could not be verified.
+                No Pro subscription has been activated.
+            </p>
+
+            <div class="checkout-details">
+                <div>
+                    <span>Plan</span>
+                    <strong>{{ payment.plan.name }}</strong>
+                </div>
+                <div>
+                    <span>Amount</span>
+                    <strong>{{ payment.amount|floatformat:0 }} $</strong>
+                </div>
+            </div>
+
+            <a
+                href="{% url 'subscription:plans' %}"
+                class="subscription-button"
+            >
+                Try Again
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

@@ -1,42 +1,30 @@
+from azbankgateways import default_settings as bank_settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .models import Plan, Payment
+from .models import Payment, Plan
 from .services import (
     can_purchase_subscription,
-    complete_mock_payment,
-    create_mock_payment,
+    create_payment,
+    finalize_gateway_payment,
     has_active_pro_subscription,
+    start_gateway_payment,
 )
 
 
 def plans(request):
-    plans_list = Plan.objects.filter(
-        is_active=True
-    )
-
-    is_pro = has_active_pro_subscription(request.user)
-
     context = {
-        'plans': plans_list,
-        'is_pro': is_pro,
+        'plans': Plan.objects.filter(is_active=True),
+        'is_pro': has_active_pro_subscription(request.user),
     }
-
-    return render(
-        request,
-        'subscription/plans.html',
-        context,
-    )
+    return render(request, 'subscription/plans.html', context)
 
 
 @login_required
 def checkout(request, plan_id):
-    plan = get_object_or_404(
-        Plan,
-        id=plan_id,
-        is_active=True,
-    )
+    plan = get_object_or_404(Plan, id=plan_id, is_active=True)
 
     if not can_purchase_subscription(request.user):
         messages.warning(
@@ -47,31 +35,14 @@ def checkout(request, plan_id):
 
     if request.method == 'POST':
         try:
-            payment = create_mock_payment(
-                request.user,
-                plan,
-            )
+            payment = create_payment(request.user, plan)
         except ValueError as error:
-            messages.error(
-                request,
-                str(error),
-            )
+            messages.error(request, str(error))
             return redirect('subscription:plans')
 
-        return redirect(
-            'subscription:payment',
-            payment_id=payment.id,
-        )
+        return redirect('subscription:payment', payment_id=payment.id)
 
-    context = {
-        'plan': plan,
-    }
-
-    return render(
-        request,
-        'subscription/checkout.html',
-        context,
-    )
+    return render(request, 'subscription/checkout.html', {'plan': plan})
 
 
 @login_required
@@ -88,55 +59,80 @@ def payment(request, payment_id):
             payment_id=payment_object.id,
         )
 
+    if payment_object.status == 'failed':
+        return redirect(
+            'subscription:payment_failed',
+            payment_id=payment_object.id,
+        )
+
     if request.method == 'POST':
         try:
-            complete_mock_payment(payment_object)
+            return start_gateway_payment(request, payment_object)
         except ValueError as error:
-            messages.error(
-                request,
-                str(error),
-            )
-            return redirect(
-                'subscription:plans'
-            )
+            messages.error(request, str(error))
+            return redirect('subscription:plans')
 
+    return render(
+        request,
+        'subscription/payment.html',
+        {'payment': payment_object},
+    )
+
+
+def callback(request):
+    tracking_code = request.GET.get(
+        bank_settings.TRACKING_CODE_QUERY_PARAM
+    )
+
+    if not tracking_code:
+        raise Http404
+
+    payment_object = finalize_gateway_payment(tracking_code)
+
+    if payment_object is None:
+        raise Http404
+
+    if payment_object.status == 'paid':
         return redirect(
             'subscription:payment_success',
             payment_id=payment_object.id,
         )
 
-    context = {
-        'payment': payment_object,
-    }
-
-    return render(
-        request,
-        'subscription/payment.html',
-        context,
+    return redirect(
+        'subscription:payment_failed',
+        payment_id=payment_object.id,
     )
 
 
 @login_required
 def payment_success(request, payment_id):
     payment_object = get_object_or_404(
-        Payment,
+        Payment.objects.select_related('plan', 'subscription'),
         id=payment_id,
         user=request.user,
         status='paid',
     )
 
-    subscription = payment_object.user.subscriptions.filter(
-        created_at__gte=payment_object.paid_at,
-        plan=payment_object.plan,
-    ).order_by('-created_at').first()
-
-    context = {
-        'payment': payment_object,
-        'subscription': subscription,
-    }
-
     return render(
         request,
         'subscription/payment_success.html',
-        context,
+        {
+            'payment': payment_object,
+            'subscription': payment_object.subscription,
+        },
+    )
+
+
+@login_required
+def payment_failed(request, payment_id):
+    payment_object = get_object_or_404(
+        Payment,
+        id=payment_id,
+        user=request.user,
+    )
+
+    return render(
+        request,
+        'subscription/payment_failed.html',
+        {'payment': payment_object},
     )

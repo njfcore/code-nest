@@ -19,9 +19,11 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
+from azbankgateways.urls import az_bank_gateways_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('bankgateways/', az_bank_gateways_urls()),
     path('', include('core.urls')),
     path('accounts/', include('accounts.urls')),
     path('blog/', include('blog.urls')),

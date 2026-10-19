@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/subscription.css' %}">
+<link rel="stylesheet" href="{% static 'css/subscription.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -14,25 +14,25 @@ Payment Successful — Code Nest
     <div class="container">
 
 
-    <div class="checkout-card payment-success-card">
+        <div class="checkout-card payment-success-card">
 
-        <div class="payment-success-icon">
-            ✓
-        </div>
+            <div class="payment-success-icon">
+                ✓
+            </div>
 
-        <span class="section-label">
-            PAYMENT SUCCESSFUL
-        </span>
+            <span class="section-label">
+                PAYMENT SUCCESSFUL
+            </span>
 
-        <h1>
-            Welcome to Code Nest Pro
-        </h1>
+            <h1>
+                Welcome to Code Nest Pro
+            </h1>
 
-        <p>
-            Your Pro subscription has been activated successfully.
-        </p>
+            <p>
+                Your Pro subscription has been activated successfully.
+            </p>
 
-        {% if subscription %}
+            {% if subscription %}
 
             <div class="checkout-details">
 
@@ -57,20 +57,24 @@ Payment Successful — Code Nest
                     </strong>
                 </div>
 
+                {% if payment.ref_id %}
+                <div>
+                    <span>Reference ID</span>
+                    <strong>{{ payment.ref_id }}</strong>
+                </div>
+                {% endif %}
+
             </div>
 
-        {% endif %}
+            {% endif %}
 
-        <a
-            href="{% url 'accounts:profile' %}"
-            class="subscription-button"
-        >
-            Go to Profile
-        </a>
+            <a href="{% url 'accounts:profile' %}" class="subscription-button">
+                Go to Profile
+            </a>
+
+        </div>
 
     </div>
-
-</div>
 
 
 </section>

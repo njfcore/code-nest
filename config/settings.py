@@ -40,7 +40,22 @@ INSTALLED_APPS = [
     'blog',
     'accounts',
     'subscription',
+    'azbankgateways',
 ]
+
+AZ_IRANIAN_BANK_GATEWAYS = {
+    'GATEWAYS': {
+        'ZARINPAL': {
+            # In sandbox mode, use any UUID as the merchant id
+            'MERCHANT_CODE': '00000000-0000-0000-0000-000000000000',
+            'SANDBOX': 1,  # 1 = sandbox, 0 = production  
+        },
+    },
+    'DEFAULT': 'ZARINPAL',
+    'IS_SAFE_GET_GATEWAY_PAYMENT': False,  # set to True in production
+    'TRACKING_CODE_QUERY_PARAM': 'tc',
+    'TRACKING_CODE_LENGTH': 16,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
