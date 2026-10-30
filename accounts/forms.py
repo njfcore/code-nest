@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.password_validation import validate_password
 
 
 class RegisterForm(UserCreationForm):
@@ -27,10 +28,8 @@ class RegisterForm(UserCreationForm):
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number'].strip()
 
-        if not phone_number.isdigit():
-            raise forms.ValidationError(
-                'Phone number must contain only digits.'
-            )
+        if not phone_number.isascii() or not phone_number.isdigit():
+            raise forms.ValidationError('Phone number must contain only Latin digits.')
 
         if len(phone_number) != 11 or not phone_number.startswith('09'):
             raise forms.ValidationError(
@@ -144,6 +143,10 @@ class ChangePasswordForm(forms.Form):
         ),
     )
 
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+
     def clean(self):
         cleaned_data = super().clean()
 
@@ -155,10 +158,11 @@ class ChangePasswordForm(forms.Form):
                 'The two password fields must match.'
             )
 
-        if password1 and len(password1) < 8:
-            raise forms.ValidationError(
-                'Password must be at least 8 characters long.'
-            )
+        if password1:
+            try:
+                validate_password(password1, self.user)
+            except forms.ValidationError as error:
+                self.add_error('new_password1', error)
 
         return cleaned_data
 

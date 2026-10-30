@@ -62,5 +62,10 @@ class PhoneVerification(models.Model):
         default=False,
     )
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['phone_number', 'purpose', 'is_used']),
+        ]
+
     def __str__(self):
-        return f'{self.phone_number} - {self.purpose}'    
+        return f'{self.phone_number} - {self.get_purpose_display()}'    

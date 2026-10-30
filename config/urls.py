@@ -28,6 +28,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('blog/', include('blog.urls')),
     path('subscription/', include('subscription.urls')),
+    path('comments/', include('comments.urls')),
 ]
 
 if settings.DEBUG:

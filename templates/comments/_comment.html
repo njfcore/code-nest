@@ -1,0 +1,82 @@
+<article
+    class="comment {% if is_reply %}comment-reply{% endif %}"
+    id="comment-{{ comment.id }}"
+>
+
+    <div class="comment-avatar">
+        {% if comment.is_deleted %}?{% else %}{{ comment.user.username|first|upper }}{% endif %}
+    </div>
+
+    <div class="comment-main">
+
+        <div class="comment-header">
+            <strong class="comment-author">
+                {% if comment.is_deleted %}Deleted{% else %}{{ comment.user.username }}{% endif %}
+            </strong>
+            <span class="comment-date">
+                {{ comment.created_at|date:"M d, Y H:i" }}
+            </span>
+        </div>
+
+        {% if comment.is_deleted %}
+            <p class="comment-deleted">This comment was deleted.</p>
+        {% else %}
+            <p class="comment-body">{{ comment.body|linebreaksbr }}</p>
+
+            <div class="comment-actions">
+
+                {% if can_comment %}
+                    <details class="comment-reply-box">
+                        <summary>Reply</summary>
+
+                        <form
+                            method="post"
+                            action="{% url 'comments:reply' comment.id %}"
+                            class="comment-reply-form"
+                        >
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+
+                            <textarea
+                                name="body"
+                                rows="3"
+                                maxlength="1000"
+                                placeholder="Write a reply..."
+                                required
+                            ></textarea>
+
+                            <button type="submit" class="comment-submit comment-submit-small">
+                                Post Reply
+                            </button>
+                        </form>
+                    </details>
+                {% endif %}
+
+                {% if comment.can_delete %}
+                    <form
+                        method="post"
+                        action="{% url 'comments:delete' comment.id %}"
+                        onsubmit="return confirm('Delete this comment?');"
+                    >
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                        <button type="submit" class="comment-delete-button">
+                            Delete
+                        </button>
+                    </form>
+                {% endif %}
+
+            </div>
+        {% endif %}
+
+    </div>
+
+</article>
+
+{% if not is_reply and comment.live_replies %}
+    <div class="comment-replies">
+        {% for reply in comment.live_replies %}
+            {% include 'comments/_comment.html' with comment=reply is_reply=True %}
+        {% endfor %}
+    </div>
+{% endif %}

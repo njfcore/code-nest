@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-    {{ post.title }} — Code Nest
+    {{ post.title }} &mdash; Code Nest
 {% endblock %}
 
 {% block meta_description %}
@@ -12,6 +12,7 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/post.css' %}">
+    <link rel="stylesheet" href="{% static 'css/comments.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -30,13 +31,13 @@
                 Home
             </a>
 
-            <span>→</span>
+            <span>&rarr;</span>
 
             <a href="{% url 'blog:allposts' %}">
                 Articles
             </a>
 
-            <span>→</span>
+            <span>&rarr;</span>
 
             <span>
                 {{ post.title }}
@@ -53,7 +54,7 @@
 
             {% if post.author %}
 
-                <span>•</span>
+                <span>&bull;</span>
 
                 <span>
                     {{ post.author.user.username }}
@@ -166,7 +167,7 @@
                     <div class="post-locked">
 
                         <div class="post-locked-icon">
-                            🔒
+                            &#128274;
                         </div>
 
                         <h2>
@@ -235,6 +236,22 @@
 
 </section>
 
+{% if not post.is_pro or has_access %}
+<section class="post-comments-cta">
+    <div class="container">
+
+        <a
+            href="{% url 'comments:list' post.slug %}"
+            class="post-comments-button"
+        >
+            <span>Comments</span>
+            <span class="post-comments-count">{{ comments_count }}</span>
+            <span>→</span>
+        </a>
+
+    </div>
+</section>
+{% endif %}
 
 <!-- =========================================
      BACK TO ARTICLES
@@ -248,7 +265,7 @@
             href="{% url 'blog:allposts' %}"
             class="post-back-link"
         >
-            ← Back to Articles
+            &larr; Back to Articles
         </a>
 
     </div>

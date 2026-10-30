@@ -441,7 +441,11 @@ def change_password_verify_view(request):
     resend_success = request.session.pop('change_password_resend_success', None)
 
     otp_form = PhoneOTPForm(request.POST or None, prefix='otp')
-    password_form = ChangePasswordForm(request.POST or None, prefix='pw')
+    password_form = ChangePasswordForm(
+        request.POST or None,
+        prefix='pw',
+        user=request.user,
+    )
 
     if request.method == 'POST':
 

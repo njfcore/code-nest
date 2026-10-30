@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Comments — {{ post.title }} — Code Nest
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/comments.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="comments-hero">
+    <div class="container">
+
+        <div class="comments-breadcrumb">
+            <a href="/">Home</a>
+            <span>→</span>
+            <a href="{% url 'blog:allposts' %}">Articles</a>
+            <span>→</span>
+            <a href="{% url 'blog:postdetails' post.slug %}">{{ post.title }}</a>
+            <span>→</span>
+            <strong>Comments</strong>
+        </div>
+
+        <span class="comments-eyebrow">DISCUSSION</span>
+
+        <h1>
+            Comments
+            <span class="comments-total">{{ total_comments }}</span>
+        </h1>
+
+        <p>{{ post.title }}</p>
+
+    </div>
+</section>
+
+
+<section class="comments-section">
+    <div class="container comments-container">
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="comments-message comments-message-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
+        <!-- New comment -->
+        {% if user.is_authenticated %}
+
+            {% if can_comment %}
+                <form method="post" class="comment-form">
+                    {% csrf_token %}
+
+                    <label for="{{ form.body.id_for_label }}">
+                        Add a comment
+                    </label>
+
+                    {{ form.body }}
+
+                    {% if form.body.errors %}
+                        <div class="comment-field-error">
+                            {{ form.body.errors|striptags }}
+                        </div>
+                    {% endif %}
+
+                    <div class="comment-form-footer">
+                        <span>Max 1000 characters</span>
+                        <button type="submit" class="comment-submit">
+                            Post Comment
+                        </button>
+                    </div>
+                </form>
+            {% endif %}
+
+        {% else %}
+
+            <div class="comments-login-prompt">
+                <p>You need an account to join the discussion.</p>
+                <a
+                    href="{% url 'accounts:login' %}?next={{ request.path }}"
+                    class="comment-submit"
+                >
+                    Login to comment
+                </a>
+            </div>
+
+        {% endif %}
+
+
+        <!-- Comment list -->
+        {% if page_obj.object_list %}
+
+            <div class="comment-list">
+                {% for comment in page_obj %}
+                    <div class="comment-thread">
+                        {% include 'comments/_comment.html' with is_reply=False %}
+                    </div>
+                {% endfor %}
+            </div>
+
+
+            {% if page_obj.has_other_pages %}
+
+                <nav class="pagination" aria-label="Comments pagination">
+
+                    {% if page_obj.has_previous %}
+                        <a
+                            href="?page={{ page_obj.previous_page_number }}"
+                            class="pagination-link pagination-arrow"
+                            aria-label="Previous page"
+                        >&larr;</a>
+                    {% else %}
+                        <span class="pagination-link pagination-arrow disabled">&larr;</span>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <span class="pagination-link active" aria-current="page">
+                                {{ num }}
+                            </span>
+                        {% else %}
+                            <a href="?page={{ num }}" class="pagination-link">
+                                {{ num }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <a
+                            href="?page={{ page_obj.next_page_number }}"
+                            class="pagination-link pagination-arrow"
+                            aria-label="Next page"
+                        >&rarr;</a>
+                    {% else %}
+                        <span class="pagination-link pagination-arrow disabled">&rarr;</span>
+                    {% endif %}
+
+                </nav>
+
+            {% endif %}
+
+        {% else %}
+
+            <div class="comments-empty">
+                <div class="comments-empty-icon">&lt;/&gt;</div>
+                <h2>No comments yet</h2>
+                <p>Be the first to share your thoughts on this article.</p>
+            </div>
+
+        {% endif %}
+
+
+        <div class="comments-back">
+            <a href="{% url 'blog:postdetails' post.slug %}">
+                ← Back to article
+            </a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

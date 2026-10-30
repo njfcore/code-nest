@@ -18,6 +18,9 @@ class UserProfileAdmin(admin.ModelAdmin):
         'phone_number',
     )
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('user')
+
 @admin.register(PhoneVerification)
 class PhoneVerificationAdmin(admin.ModelAdmin):
     list_display = (
